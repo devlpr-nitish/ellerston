@@ -1,0 +1,65 @@
+@import url(../fonts/stylesheet.css);
+
+body {
+    font-family: 'Candide';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #fff;
+}
+
+.homescreen {
+    background: url(../img/main_bg.png) center no-repeat;
+    background-size: cover;
+}
+
+.top_bar {
+    padding: 24px 74px
+}
+
+.top_right a {
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 12%;
+    line-height: 24px;
+    padding: 8px 16px;
+}
+
+.top_right a span {
+    transition: all 0.3s linear 0s;
+    border-bottom: #ffffff00 solid 1px;
+    color: #fff;
+}
+
+.top_right a:hover span {
+    border-bottom: #fff solid 1px;
+    color: #fff;
+}
+
+.scroll-down {
+    height: 86px;
+    width: 86px;
+    margin: auto;
+    position: relative;
+}
+
+.scroll-down span {
+    width: 1px;
+    height: 33px;
+    background-color: #fff;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.express_bg {
+    background: #000 url(../img/express_bg.png) no-repeat center;
+    background-size: cover;
+}
+
+.form_bg {
+    background: #000 url(../img/from_bg.png) no-repeat center;
+    background-size: cover;
+}
