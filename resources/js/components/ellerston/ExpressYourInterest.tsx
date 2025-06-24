@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
+import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 window.addEventListener('load', () => {
@@ -35,17 +36,39 @@ function ExpressYourInterest() {
         boxes.forEach((box) => {
             gsap.fromTo(
                 box,
-                { opacity: 0, y: 80 },
+                { opacity: 0, y: 50 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: 0.5,
+                    stagger: 0.5,
                     scrollTrigger: {
                         trigger: box,
-                        start: 'top 98%',
-                        end: 'bottom 88%',
+                        start: 'top+=100 bottom',
+                        end: 'top+=50 65%',
                         scrub: true,
                         //markers: true,
+                    },
+                },
+            );
+        });
+
+        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2');
+        boxes2.forEach((box2) => {
+            gsap.fromTo(
+                box2,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.5,
+                    scrollTrigger: {
+                        trigger: box2,
+                        start: 'top+=200 bottom',
+                        end: 'top+=50 65%',
+                        scrub: true,
+                        markers: false,
                     },
                 },
             );
@@ -86,14 +109,14 @@ function ExpressYourInterest() {
                             </div>
                         </div>
                         <div className="">
-                            <h3 className={'fade-box ' + h3_class}>Signature EXPERIENCE</h3>
-                            <h5 className={'fade-box ' + h5_class}>2 Days, 1 night</h5>
-                            <span className={'fade-box ' + line_style}></span>
-                            <p className={'fade-box py-[12px] ' + p_class}>
+                            <h3 className={'fade-box2 ' + h3_class}>Signature EXPERIENCE</h3>
+                            <h5 className={'fade-box2 ' + h5_class}>2 Days, 1 night</h5>
+                            <span className={'fade-box2 ' + line_style}></span>
+                            <p className={'fade-box2 py-[12px] ' + p_class}>
                                 Private access to Ellerston Golf course for two rounds, overnight accommodation and helicopter transport to and from
                                 Sydney.
                             </p>
-                            <div className="fade-box">
+                            <div className="fade-box2">
                                 <Link className={button_style + ' btn_arrow'} href="/">
                                     <span>
                                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,6 +132,7 @@ function ExpressYourInterest() {
                         </div>
                     </div>
                 </div>
+                
             </div>
         </section>
     );
