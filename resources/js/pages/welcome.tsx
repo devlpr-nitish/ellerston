@@ -19,7 +19,6 @@ export default function Welcome() {
     const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const sections = Array.from(document.querySelectorAll<HTMLElement>('.section'));
         if (!wrapperRef.current || !contentRef.current) return;
 
         const smoother = ScrollSmoother.create({
@@ -29,26 +28,8 @@ export default function Welcome() {
             effects: true,
         });
 
-        sections.forEach((section, i) => {
-            const nextSection = sections[i + 1];
-            if (!nextSection) return;
-
-            ScrollTrigger.create({
-                trigger: section,
-                start: 'top 20%', // triggers when top of current section hits 80% viewport height
-                onEnter: () => {
-                    gsap.to(window, {
-                        scrollTo: { y: nextSection, offsetY: 0 },
-                        duration: 1,
-                        ease: 'power2.out',
-                    });
-                },
-                once: true, // optional: prevents retriggering when scrolling back up
-            });
-        });
-
         return () => {
-            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+            smoother.kill();
         };
     }, []);
     return (
@@ -57,11 +38,8 @@ export default function Welcome() {
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
                     <HeroScreen />
-
-                    <ExpressForm />
                     <ExpressYourInterest />
-                    <HeroScreen />
-
+                    <ExpressForm />
                 </div>
             </div>
             {/* 

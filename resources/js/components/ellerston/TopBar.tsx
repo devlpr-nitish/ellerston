@@ -1,7 +1,31 @@
 import { Link } from '@inertiajs/react';
 import { motion as m } from 'framer-motion';
 import sitelogo from '../../assets/img/logo.svg';
+
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
+
 function TopBar() {
+    document.querySelectorAll('.scroll-link').forEach((link) => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: {
+                        y: targetElement,
+                        offsetY: 0, // optional: offset from top
+                    },
+                    ease: 'power2.out',
+                });
+            }
+        });
+    });
     return (
         <m.div
             initial={{ opacity: 0 }}
@@ -15,7 +39,7 @@ function TopBar() {
             <div className="top_right">
                 <ul className="m-0 flex list-none p-0">
                     <li>
-                        <Link href="/" className="flex items-center gap-1.5">
+                        <Link href="#experience_wrap" className="scroll-link flex items-center gap-1.5">
                             <span>EXPRESS YOUR INTEREST</span>
                         </Link>
                     </li>
