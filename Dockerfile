@@ -29,13 +29,7 @@ COPY . .
 COPY --from=node_builder /app/public/build ./public/build
 
 # Install PHP dependencies
-#RUN composer install --no-dev --optimize-autoloader
-
-RUN composer install --no-dev --optimize-autoloader \
-    && php artisan migrate \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache \
+RUN composer install --no-dev --optimize-autoloader
 
 # Permissions
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html && \
