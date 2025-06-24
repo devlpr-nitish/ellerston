@@ -5,6 +5,6 @@ services:
     build: .
     container_name: laravel-react-app
     ports:
-      - "8080:80"
+      - "80:80"
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
