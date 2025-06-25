@@ -64,12 +64,12 @@ option {
 }
 
 .express_bg {
-    background: #000 url(../img/express_bg.png) no-repeat center;
+    background: #000 url(../img/express_bg.jpg) no-repeat center;
     background-size: cover;
 }
 
 .form_bg {
-    background: #000 url(../img/from_bg.png) no-repeat center;
+    background: #000 url(../img/from_bg.jpg) no-repeat center;
     background-size: cover;
 }
 
@@ -180,6 +180,6 @@ option {
 }
 
 .thanks_bg {
-    background: #fff url(../img/thanks_bg.png) no-repeat center;
+    background: #fff url(../img/thanks_bg.jpg) no-repeat center;
     background-size: cover;
 }
