@@ -6,29 +6,27 @@ import { useEffect } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
 
 gsap.registerPlugin(ScrollTrigger);
-window.addEventListener('load', () => {
-    const tl = gsap.timeline();
-    tl.fromTo(
-        '.express_bg',
-        { opacity: 0, y: 150 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 2,
-            delay: 1,
-        },
-    );
-    ScrollTrigger.create({
-        animation: tl,
-        trigger: '.experience_wrap',
-        scrub: true,
-        start: 'top 98%',
-        end: '20% 70%',
-        markers: false,
-    });
-});
 function ExpressYourInterest() {
     useEffect(() => {
+        const tl = gsap.timeline();
+        tl.fromTo(
+            '.express_bg',
+            { opacity: 0, y: 150 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 2,
+                delay: 1,
+            },
+        );
+        ScrollTrigger.create({
+            animation: tl,
+            trigger: '.experience_wrap',
+            scrub: true,
+            start: 'top 98%',
+            end: '20% 70%',
+            markers: false,
+        });
         const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
         boxes.forEach((box) => {
             gsap.fromTo(

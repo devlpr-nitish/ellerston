@@ -6,30 +6,29 @@ import { button_style, feild_class, h1_class, h3_class, label_full, mb24, p_sm_c
 import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
-window.addEventListener('load', () => {
-    const tl = gsap.timeline();
-    tl.fromTo(
-        '.form_bg',
-        { opacity: 0, y: 150 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-        },
-    );
-    ScrollTrigger.create({
-        animation: tl,
-        trigger: '.form_wrap',
-        scrub: true,
-        start: 'top+=10% 98%',
-        end: '20% 60%',
-        markers: false,
-    });
-});
+
 function ExpressForm() {
     const sectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const tl = gsap.timeline();
+        tl.fromTo(
+            '.form_bg',
+            { opacity: 0, y: 150 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+            },
+        );
+        ScrollTrigger.create({
+            animation: tl,
+            trigger: '.form_wrap',
+            scrub: true,
+            start: 'top+=10% 98%',
+            end: '20% 60%',
+            markers: false,
+        });
         const section = sectionRef.current;
 
         if (section) {
@@ -50,7 +49,7 @@ function ExpressForm() {
             });
 
             rows.forEach((row, index) => {
-                tl.to(row, { opacity: 1, y: 0, duration: 0.3, delay: 0.1, ease: 'power2.out' });
+                tl.to(row, { opacity: 1, y: 0, duration: 0.5, delay: 0, ease: 'power2.out' });
             });
         }
 
