@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 window.addEventListener('load', () => {
     const tl = gsap.timeline();
     tl.fromTo(
-        '.form_bg1',
+        '.form_bg',
         { opacity: 0, y: 150 },
         {
             opacity: 1,
