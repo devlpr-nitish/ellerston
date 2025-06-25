@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use App\Http\Controllers\ContactController;
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -17,6 +17,11 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('route:clear');
     // return what you want
  });
+
+Route::get('/thank_you', function () {
+    return Inertia::render('ThankYou');
+});
+
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
@@ -29,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::post('/', [ContactController::class, 'store'])->name('express.store');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

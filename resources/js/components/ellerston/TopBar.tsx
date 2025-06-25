@@ -30,7 +30,7 @@ function TopBar() {
         <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.8 }}
+            transition={{ duration: 1.2, delay: 1 }}
             className="top_bar fixed top-0 left-0 z-20 flex w-full items-center justify-between"
         >
             <div className="logo">
