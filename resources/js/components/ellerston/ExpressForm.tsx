@@ -14,18 +14,16 @@ window.addEventListener('load', () => {
         {
             opacity: 1,
             y: 0,
-            duration: 2,
+            duration: 1,
         },
     );
     ScrollTrigger.create({
         animation: tl,
-        trigger: '',
-        // pin: true,
-        //pinSpacing: false,
+        trigger: '.form_wrap',
         scrub: true,
-        start: 'top 98%',
-        end: '10% 80%',
-        //markers: true,
+        start: 'top+=10% 98%',
+        end: '20% 60%',
+        markers: false,
     });
 });
 function ExpressForm() {
@@ -42,16 +40,17 @@ function ExpressForm() {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
-                    start: 'top center+=50',
+                    start: 'top+=10% center+=50',
                     end: 'bottom 85%',
                     //pin: true,
-                    scrub: true,
+                    //scrub: true,
+                    toggleActions: 'restart none reverse none',
                     markers: false,
                 },
             });
 
             rows.forEach((row, index) => {
-                tl.to(row, { opacity: 1, y: 0, duration: 1 }, '+=0.2');
+                tl.to(row, { opacity: 1, y: 0, duration: 0.3, delay: 0.1, ease: 'power2.out' });
             });
         }
 
@@ -64,9 +63,9 @@ function ExpressForm() {
                 ease: 'power2.out',
                 scrollTrigger: {
                     trigger: section,
-                    start: 'top 60%',
+                    start: 'top center',
                     end: '+=5%',
-                    toggleActions: 'play none none reverse', // optional
+                    toggleActions: 'restart none reverse none', // optional
                     markers: false, // optional, for debugging
                 },
             },

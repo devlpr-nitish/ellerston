@@ -9,8 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 window.addEventListener('load', () => {
     const tl = gsap.timeline();
     tl.fromTo(
-        '.express_bg1',
-        { opacity: 0, y: 100 },
+        '.express_bg',
+        { opacity: 0, y: 150 },
         {
             opacity: 1,
             y: 0,
@@ -20,13 +20,11 @@ window.addEventListener('load', () => {
     );
     ScrollTrigger.create({
         animation: tl,
-        trigger: '',
-        // pin: true,
-        //pinSpacing: false,
+        trigger: '.experience_wrap',
         scrub: true,
         start: 'top 98%',
-        end: '10% 80%',
-        //markers: true,
+        end: '20% 70%',
+        markers: false,
     });
 });
 function ExpressYourInterest() {
