@@ -178,3 +178,8 @@ option {
     opacity: 1;
     left: 0px;
 }
+
+.thanks_bg {
+    background: #fff url(../img/thanks_bg.png) no-repeat center;
+    background-size: cover;
+}
