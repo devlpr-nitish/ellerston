@@ -44,7 +44,7 @@ function ExpressForm() {
                     end: 'bottom 85%',
                     //pin: true,
                     //scrub: true,
-                    toggleActions: 'restart none reverse none',
+                    toggleActions: 'restart none none reverse',
                     markers: false,
                 },
             });
@@ -65,7 +65,7 @@ function ExpressForm() {
                     trigger: section,
                     start: 'top center',
                     end: '+=5%',
-                    toggleActions: 'restart none reverse none', // optional
+                    toggleActions: 'restart none none reverse', // optional
                     markers: false, // optional, for debugging
                 },
             },
