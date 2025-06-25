@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef, useState } from 'react';
@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
     );
     ScrollTrigger.create({
         animation: tl,
-        trigger: '.form_wrap',
+        trigger: '',
         // pin: true,
         //pinSpacing: false,
         scrub: true,
@@ -102,8 +102,9 @@ function ExpressForm() {
             return;
         }
 
-        console.log('Form submitted:', formData);
-        alert('Form submitted successfully! Check the console for data.');
+        //console.log('Form submitted:', formData);
+
+        router.post('/', formData);
     };
     return (
         <section className="section w-full items-center bg-black">

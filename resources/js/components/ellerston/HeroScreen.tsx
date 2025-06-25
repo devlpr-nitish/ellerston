@@ -30,11 +30,9 @@ function HeroScreen() {
             texts.forEach((_, i) => {
                 const slide = slidesRef.current[i];
                 if (!slide) return;
-                if (i === 0) {
-                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1.5, delay: 2 });
-                } else {
-                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1.5 });
-                }
+
+                tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1.5 });
+
                 if (i < texts.length - 1) {
                     tl.to(slide, { opacity: 0, duration: 1.5, delay: 3 });
                 } else {

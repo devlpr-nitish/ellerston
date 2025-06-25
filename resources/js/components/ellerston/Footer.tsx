@@ -3,27 +3,17 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 window.addEventListener('load', () => {
-    const tl = gsap.timeline();
-    tl.fromTo(
+    gsap.fromTo(
         '.foot_link',
-        { opacity: 0, y: 150 },
+        { opacity: 0, y: 80 },
         {
             opacity: 1,
             y: 0,
-            duration: 2,
-            delay: 2,
+            duration: 0.5,
+            stagger: 0.3,
+            delay: 1,
         },
     );
-    ScrollTrigger.create({
-        animation: tl,
-        trigger: '.footer',
-        // pin: true,
-        //pinSpacing: false,
-        scrub: true,
-        start: 'top 98%',
-        end: 'top 80%',
-        //markers: true,
-    });
 });
 function Footer() {
     return (

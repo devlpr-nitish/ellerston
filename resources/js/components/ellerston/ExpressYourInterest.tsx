@@ -4,7 +4,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
-import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 window.addEventListener('load', () => {
@@ -21,7 +20,7 @@ window.addEventListener('load', () => {
     );
     ScrollTrigger.create({
         animation: tl,
-        trigger: '.experience_wrap',
+        trigger: '',
         // pin: true,
         //pinSpacing: false,
         scrub: true,
@@ -132,7 +131,6 @@ function ExpressYourInterest() {
                         </div>
                     </div>
                 </div>
-                
             </div>
         </section>
     );
