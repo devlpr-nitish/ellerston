@@ -94,7 +94,7 @@ function ExpressForm() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
+        window.history.pushState("", "", "/thank_you");
         if (!formData.acceptPolicy) {
             alert('You must accept the Terms and Conditions to submit the form.');
             return;
