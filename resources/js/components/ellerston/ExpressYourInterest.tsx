@@ -14,7 +14,7 @@ function ExpressYourInterest({ onShowContact }) {
         const fadeTo = {
             opacity: 1,
             y: 0,
-            duration: 0.3,
+            duration: 0.35,
             ease: 'power2.out',
         };
 
@@ -50,7 +50,7 @@ function ExpressYourInterest({ onShowContact }) {
                 { width: '0' },
                 {
                     width: '100%',
-                    duration: 0.3,
+                    duration: 0.35,
                     ease: 'power2.out',
                 },
             );
