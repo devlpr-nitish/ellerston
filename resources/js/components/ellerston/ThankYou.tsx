@@ -57,7 +57,7 @@ function ThankYou({ onClose }: { onClose: () => void }) {
     };
     return (
         <section className="popup_wrap fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-white/90">
-            <div ref={modalRef} className="relative p-[10vw]">
+            <div ref={modalRef} className="relative p-[6vw]">
                 <div className="thanks_bg absolute top-0 left-0 z-0 h-full w-full"></div>
                 <div className="relative z-10 mx-auto flex max-w-[1050px] flex-col items-center justify-center py-[120px]">
                     <div className="in_head mx-auto flex max-w-[630px] flex-col items-center">
