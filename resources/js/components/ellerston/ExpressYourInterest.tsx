@@ -14,8 +14,8 @@ function ExpressYourInterest({ onShowContact }) {
         const fadeTo = {
             opacity: 1,
             y: 0,
-            duration: 0.2,
-            ease: 'power3.out',
+            duration: 0.3,
+            ease: 'power2.out',
         };
 
         tl.fromTo(
@@ -50,8 +50,8 @@ function ExpressYourInterest({ onShowContact }) {
                 { width: '0' },
                 {
                     width: '100%',
-                    duration: 0.2,
-                    ease: 'power3.out',
+                    duration: 0.3,
+                    ease: 'power2.out',
                 },
             );
         });
@@ -68,7 +68,7 @@ function ExpressYourInterest({ onShowContact }) {
             trigger: '.experience_wrap',
             start: 'top+=10px 10%',
             end: '+=5%',
-            toggleActions: 'play none none none',
+            toggleActions: 'restart none reverse none',
             markers: false,
             invalidateOnRefresh: true,
         });
@@ -118,7 +118,8 @@ function ExpressYourInterest({ onShowContact }) {
                                 Sydney.
                             </p>
                             <div className="linkdiv">
-                                <Link className={button_style + ' btn_arrow'} href="/">
+							<Link onClick={onShowContact} className={button_style + ' btn_arrow scroll-link'} href="#classic_experience">
+                               
                                     <span>
                                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
