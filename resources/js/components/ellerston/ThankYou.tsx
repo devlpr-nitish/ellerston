@@ -45,9 +45,18 @@ function ThankYou({ onClose }: { onClose: () => void }) {
                 onClose();
             },
         });
+        gsap.to('.popup_wrap', {
+            opacity: 0,
+            duration: 0.4,
+            delay: 0.6,
+            ease: 'power2.in',
+            onComplete: () => {
+                onClose();
+            },
+        });
     };
     return (
-        <section className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-white/90">
+        <section className="popup_wrap fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-white/90">
             <div ref={modalRef} className="relative p-[10vw]">
                 <div className="thanks_bg absolute top-0 left-0 z-0 h-full w-full"></div>
                 <div className="relative z-10 mx-auto flex max-w-[1050px] flex-col items-center justify-center py-[120px]">
