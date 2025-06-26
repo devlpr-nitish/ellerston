@@ -157,9 +157,12 @@ function ExpressForm({ onSuccess }: Props) {
                                             value={formData.code}
                                             className={feild_class + 'block appearance-none'}
                                         >
-                                            <option value="+00">+00</option>
-                                            <option value="+01">+01</option>
+                                            <option value="+61">+61</option>
+                                            <option value="+93">+93</option>
                                             <option value="+91">+91</option>
+                                            <option value="+43">+43</option>
+                                            <option value="+32">+32</option>
+                                            <option value="+55">+55</option>
                                         </select>
                                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
                                             <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -208,8 +211,11 @@ function ExpressForm({ onSuccess }: Props) {
                                             className={feild_class + 'block appearance-none'}
                                         >
                                             <option value="">SELECT FROM DROPDOWN </option>
-                                            <option value="Option one">Option one</option>
-                                            <option value="Option Two">Option Two</option>
+                                            <option value="1"><10</option>
+                                            <option value="2">10-15</option>
+                                            <option value="3">15-20</option>
+                                            <option value="4">15-20</option>
+                                            <option value="5">21-30</option>
                                         </select>
                                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
                                             <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -230,8 +236,19 @@ function ExpressForm({ onSuccess }: Props) {
                                             className={feild_class + 'block appearance-none'}
                                         >
                                             <option value="">SELECT FROM DROPDOWN</option>
-                                            <option value="Option one">Option one</option>
-                                            <option value="Option Two">Option Two</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13+</option>
                                         </select>
                                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
                                             <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
