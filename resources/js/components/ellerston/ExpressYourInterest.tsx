@@ -6,69 +6,75 @@ import { useEffect } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
 
 gsap.registerPlugin(ScrollTrigger);
-function ExpressYourInterest() {
+function ExpressYourInterest({ onShowContact }) {
     useEffect(() => {
         const tl = gsap.timeline();
+
+        const fadeFrom = { opacity: 0, y: 50 };
+        const fadeTo = {
+            opacity: 1,
+            y: 0,
+            duration: 0.2,
+            ease: 'power3.out',
+        };
+
         tl.fromTo(
             '.express_bg',
-            { opacity: 0, y: 150 },
+            { opacity: 0, y: 100 },
             {
                 opacity: 1,
                 y: 0,
-                duration: 2,
-                delay: 1,
+                duration: 0.5,
+                delay: 0.1,
             },
         );
+
+        const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
+        boxes.forEach((box) => {
+            tl.fromTo(box, fadeFrom, fadeTo);
+        });
+
+        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2 h3 ');
+        boxes2.forEach((box2) => {
+            tl.fromTo(box2, fadeFrom, fadeTo);
+        });
+
+        const boxes3 = gsap.utils.toArray<HTMLElement>('.fade-box2 h5 ');
+        boxes3.forEach((box3) => {
+            tl.fromTo(box3, fadeFrom, fadeTo);
+        });
+        const boxes4 = gsap.utils.toArray<HTMLElement>('.fade-box2 > span ');
+        boxes4.forEach((box4) => {
+            tl.fromTo(
+                box4,
+                { width: '0' },
+                {
+                    width: '100%',
+                    duration: 0.2,
+                    ease: 'power3.out',
+                },
+            );
+        });
+        const boxes5 = gsap.utils.toArray<HTMLElement>('.fade-box2 > p');
+        boxes5.forEach((box5) => {
+            tl.fromTo(box5, fadeFrom, fadeTo);
+        });
+        const boxes6 = gsap.utils.toArray<HTMLElement>('.fade-box2 .linkdiv');
+        boxes6.forEach((box6) => {
+            tl.fromTo(box6, fadeFrom, fadeTo);
+        });
         ScrollTrigger.create({
             animation: tl,
             trigger: '.experience_wrap',
-            scrub: true,
-            start: 'top 98%',
-            end: '20% 70%',
+            start: 'top+=10px 10%',
+            end: '+=5%',
+            toggleActions: 'play none none none',
             markers: false,
+            invalidateOnRefresh: true,
         });
-        const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
-        boxes.forEach((box) => {
-            gsap.fromTo(
-                box,
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.5,
-                    stagger: 0.5,
-                    scrollTrigger: {
-                        trigger: box,
-                        start: 'top+=100 bottom',
-                        end: 'top+=50 65%',
-                        scrub: true,
-                        //markers: true,
-                    },
-                },
-            );
-        });
-
-        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2');
-        boxes2.forEach((box2) => {
-            gsap.fromTo(
-                box2,
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.5,
-                    stagger: 0.5,
-                    scrollTrigger: {
-                        trigger: box2,
-                        start: 'top+=200 bottom',
-                        end: 'top+=50 65%',
-                        scrub: true,
-                        markers: false,
-                    },
-                },
-            );
-        });
+        ScrollTrigger.refresh();
     }, []);
+
     return (
         <section id="experience_wrap" className="section min-h-screen w-full items-center bg-black">
             <div className="experience_wrap relative h-screen">
@@ -82,15 +88,15 @@ function ExpressYourInterest() {
                     </div>
 
                     <div className="sec_body grid grid-cols-2 gap-[250px] pt-[110px]">
-                        <div className="">
-                            <h3 className={'fade-box ' + h3_class}>CLASSIC EXPERIENCE</h3>
-                            <h5 className={'fade-box ' + h5_class}>1 day</h5>
-                            <span className={'fade-box ' + line_style}></span>
-                            <p className={'fade-box py-[12px] ' + p_class}>
+                        <div className="fade-box2">
+                            <h3 className={h3_class}>CLASSIC EXPERIENCE</h3>
+                            <h5 className={h5_class}>1 day</h5>
+                            <span className={line_style}></span>
+                            <p className={'py-[12px] ' + p_class}>
                                 Private access to Ellerston Golf course for one round with helicopter transport to and from Sydney.
                             </p>
-                            <div className="fade-box">
-                                <Link className={button_style + ' btn_arrow'} href="/">
+                            <div className="linkdiv">
+                                <Link onClick={onShowContact} className={button_style + ' btn_arrow scroll-link'} href="#classic_experience">
                                     <span>
                                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -103,15 +109,15 @@ function ExpressYourInterest() {
                                 </Link>
                             </div>
                         </div>
-                        <div className="">
-                            <h3 className={'fade-box2 ' + h3_class}>Signature EXPERIENCE</h3>
-                            <h5 className={'fade-box2 ' + h5_class}>2 Days, 1 night</h5>
-                            <span className={'fade-box2 ' + line_style}></span>
-                            <p className={'fade-box2 py-[12px] ' + p_class}>
+                        <div className="fade-box2">
+                            <h3 className={h3_class}>Signature EXPERIENCE</h3>
+                            <h5 className={h5_class}>2 Days, 1 night</h5>
+                            <span className={line_style}></span>
+                            <p className={'py-[12px] ' + p_class}>
                                 Private access to Ellerston Golf course for two rounds, overnight accommodation and helicopter transport to and from
                                 Sydney.
                             </p>
-                            <div className="fade-box2">
+                            <div className="linkdiv">
                                 <Link className={button_style + ' btn_arrow'} href="/">
                                     <span>
                                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
