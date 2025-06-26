@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { motion as m } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -59,6 +60,7 @@ function HeroScreen() {
                 scrub: true,
                 start: 'top top',
                 end: `+=${texts.length * window.innerHeight * 0.6}px`,
+                invalidateOnRefresh: true,
             });
 
             scrollTriggerRef.current = st;
@@ -171,7 +173,11 @@ function HeroScreen() {
                         </div>
                     ))}
                 </div>
-                <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">KEEP SCROLLING</div>
+                <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">
+                    <Link href="#experience_wrap" className="scroll-link">
+                        KEEP SCROLLING
+                    </Link>
+                </div>
                 <div className="scroll-down overflow-hidden">
                     <m.span
                         className="mx-auto block h-[33px] w-[2px] bg-white"
