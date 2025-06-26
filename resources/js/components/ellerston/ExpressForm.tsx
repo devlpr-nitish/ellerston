@@ -211,11 +211,10 @@ function ExpressForm({ onSuccess }: Props) {
                                             className={feild_class + 'block appearance-none'}
                                         >
                                             <option value="">SELECT FROM DROPDOWN </option>
-                                            <option value="1"><10</option>
+                                            <option value="1">&#60;10</option>
                                             <option value="2">10-15</option>
                                             <option value="3">15-20</option>
-                                            <option value="4">15-20</option>
-                                            <option value="5">21-30</option>
+                                            <option value="4">21-30</option>
                                         </select>
                                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
                                             <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
