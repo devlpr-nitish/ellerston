@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
+import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 function ExpressYourInterest({ onShowContact }) {
@@ -14,8 +15,8 @@ function ExpressYourInterest({ onShowContact }) {
         const fadeTo = {
             opacity: 1,
             y: 0,
-            duration: 0.35,
-            ease: 'power2.out',
+            duration: 0.2,
+            ease: 'power2.out"',
         };
 
         tl.fromTo(
@@ -50,8 +51,8 @@ function ExpressYourInterest({ onShowContact }) {
                 { width: '0' },
                 {
                     width: '100%',
-                    duration: 0.35,
-                    ease: 'power2.out',
+                    duration: 0.2,
+                    ease: 'power2.out"',
                 },
             );
         });
@@ -68,7 +69,8 @@ function ExpressYourInterest({ onShowContact }) {
             trigger: '.experience_wrap',
             start: 'top+=10px 10%',
             end: '+=5%',
-            toggleActions: 'restart none reverse none',
+            //toggleActions: 'restart none reverse none',
+            toggleActions: 'play none none none',
             markers: false,
             invalidateOnRefresh: true,
         });
@@ -96,7 +98,11 @@ function ExpressYourInterest({ onShowContact }) {
                                 Private access to Ellerston Golf course for one round with helicopter transport to and from Sydney.
                             </p>
                             <div className="linkdiv">
-                                <Link onClick={onShowContact} className={button_style + ' btn_arrow scroll-link'} href="#classic_experience">
+                                <Link
+                                    onClick={() => onShowContact('classic')}
+                                    className={button_style + ' btn_arrow scroll-link'}
+                                    href="#classic_experience"
+                                >
                                     <span>
                                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -118,8 +124,11 @@ function ExpressYourInterest({ onShowContact }) {
                                 Sydney.
                             </p>
                             <div className="linkdiv">
-							<Link onClick={onShowContact} className={button_style + ' btn_arrow scroll-link'} href="#classic_experience">
-                               
+                                <Link
+                                    onClick={() => onShowContact('signature')}
+                                    className={button_style + ' btn_arrow scroll-link'}
+                                    href="#classic_experience"
+                                >
                                     <span>
                                         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -134,6 +143,7 @@ function ExpressYourInterest({ onShowContact }) {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         </section>
     );

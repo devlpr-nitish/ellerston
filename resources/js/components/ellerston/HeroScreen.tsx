@@ -32,15 +32,15 @@ function HeroScreen() {
                 const slide = slidesRef.current[i];
                 if (!slide) return;
                 if (i === 0) {
-                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1.5, delay: 0 });
+                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
                 } else {
-                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1.5 });
+                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
                     if (i === 1) {
                         tl.fromTo('.keep_scrooling, .scroll-down', { opacity: 0 }, { opacity: 1, duration: 0.5 });
                     }
                 }
                 if (i < texts.length - 1) {
-                    tl.to(slide, { opacity: 0, duration: 1.5, delay: 3 });
+                    tl.to(slide, { opacity: 0, duration: 1, delay: 1 });
                 } else {
                     tl.fromTo('.homescreen', { opacity: 0.3 }, { opacity: 1, duration: 1 });
                 }
@@ -71,7 +71,7 @@ function HeroScreen() {
             // const scrollToY = containerRef.current!.offsetTop + st.end!;
             const autoScroll = gsap.to(window, {
                 scrollTo: { y: scrollToY, autoKill: true },
-                duration: texts.length * 4,
+                duration: texts.length * 2,
                 ease: 'none',
                 onUpdate: () => {
                     ScrollTrigger.update();
@@ -109,7 +109,7 @@ function HeroScreen() {
                     // Restart auto-scroll
                     autoScrollTweenRef.current = gsap.to(window, {
                         scrollTo: { y: targetScroll, autoKill: true },
-                        duration: texts.length * 4 * (remainingScroll / totalScrollLength),
+                        duration: texts.length * 2 * (remainingScroll / totalScrollLength),
                         ease: 'none',
                         onUpdate: () => ScrollTrigger.update(),
                     });
