@@ -56,7 +56,7 @@ function ThankYou({ onClose }: { onClose: () => void }) {
                     <div className="in_head mx-auto flex max-w-[630px] flex-col items-center">
                         <h1 className={'fade-box ' + h3_class}>THANK YOU FOR REGISTERING YOUR INTEREST.</h1>
                         <span className={line_style + ' fade-box my-[24px] w-full'}></span>
-                        <h5 className={h5_class + ' fade-box mb-[24px]'}>THE ELLERSTON GOLF TEAM WILL BE IN TOUCH IN DUE COURSE.</h5>
+                        <h5 className={h5_class + ' fade-box mb-[24px]'}>THE ELLERSTON GOLF TEAM WILL BE IN TOUCH.</h5>
                         <button
                             onClick={handleClose}
                             className="fade-box z-10 w-full cursor-pointer p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]"
