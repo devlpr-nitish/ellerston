@@ -150,7 +150,7 @@ const [selected, setSelected] = useState("");
                             <div className={mb24 + ' fade-effect flex gap-[24px]'}>
                                 <div className="flex-2/12">
                                     <label htmlFor="code" className={label_full}>
-                                        Code
+                                        Code1
                                     </label>
                                     <div className="relative">
                                         <select
@@ -159,7 +159,7 @@ const [selected, setSelected] = useState("");
                                             value={formData.code}
                                             className={feild_class + 'block appearance-none'}
                                         >
-                                            <option value="+61">+61</option>
+                                            <option value="+61">+61 (Australia)</option>
                                             <option value="+93">+93</option>
                                             <option value="+91">+91</option>
                                             <option value="+43">+43</option>

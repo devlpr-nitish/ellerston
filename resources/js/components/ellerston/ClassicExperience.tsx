@@ -15,32 +15,28 @@ type Props = {
 };
 
 const selecthandicap = [
-    { value: 'option_one', label: 'Option One' },
-    { value: 'option_two', label: 'Option Two' },
-    { value: 'option_three', label: 'Option Three' },
+    { value: '1', label: '< 10' },
+    { value: '2', label: '10-15' },
+    { value: '3', label: '15-20' },
+    { value: '4', label: '21-30' },
 ];
 
 const selectgroupsize = [
-    { value: 'option_one', label: 'Option One' },
-    { value: 'option_two', label: 'Option Two' },
-    { value: 'option_three', label: 'Option Three' },
-];
-
-const selectdate = [
     { value: '1', label: '1' },
     { value: '2', label: '2' },
     { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5' },
+    { value: '6', label: '6' },
+    { value: '7', label: '7' },
+    { value: '8', label: '8' },
+    { value: '9', label: '9' },
+    { value: '10', label: '10' },
+    { value: '11', label: '11' },
+    { value: '12', label: '12' },
+    { value: '13+', label: '13+' },
 ];
-const selectday = [
-    { value: 'Monday', label: 'Monday' },
-    { value: 'Tuseday', label: 'Tuseday' },
-    { value: 'Wednesday', label: 'Wednesday' },
-];
-const selectmonth = [
-    { value: 'January', label: 'January' },
-    { value: 'February', label: 'February' },
-    { value: 'March', label: 'March' },
-];
+
 
 function ClassicExperience({ onSuccess }: Props) {
     useEffect(() => {
@@ -198,8 +194,101 @@ function ClassicExperience({ onSuccess }: Props) {
                                     selected={formData.code}
                                     onSelect={(code) => setFormData((prev) => ({ ...prev, code }))}
                                     defaultCountry="US"
-                                    countries={['US', 'GB', 'FR', 'DE', 'IT']}
-                                    customLabels={{ US: '+01', GB: '+44', FR: '+33', DE: '+49', IT: '+39' }}
+                                    //countries={['US', 'GB', 'FR', 'DE', 'IT']}
+                                    //customLabels={{ US: '+01', GB: '+44', FR: '+33', DE: '+49', IT: '+39' }}
+                                    customLabels={{
+                                        "US": { primary: "(United States)", secondary: "+1" },
+                                        "GB": { primary: "(United Kingdom)", secondary: "+44" },
+                                        "IN": { primary: "(India)", secondary: "+91" },
+                                        "AU": { primary: "(Austrlia)", secondary: "+61" },
+                                        "AF": { primary: "(Afghanistan)", secondary: "+93" },
+                                        "AL": { primary: "(Albania)", secondary: "+355" },
+                                        "DZ": { primary: "(Algeria)", secondary: "+61" },
+                                        "AS": { primary: "(American Samoa)", secondary: "+1684" },
+                                        "AD": { primary: "(Amndorra)", secondary: "+376" },
+                                        "AX": { primary: "(Åland Islands)", secondary: "+358 18" },
+                                        "AO": { primary: "(Angola)", secondary: "+244" },
+                                        "AI": { primary: "(Anguilla)", secondary: "+1264" },
+                                        "AG": { primary: "(Antigua and Barbuda)", secondary: "+1268" },
+                                        "AR": { primary: "(Argentina)", secondary: "+54" },
+                                        "AM": { primary: "(Armenia)", secondary: "+374" },
+                                        "AW": { primary: "(Aruba)", secondary: "+297" },
+                                        "AT": { primary: "(Austria)", secondary: "+43" },
+                                        "AZ": { primary: "(Azerbaijan)", secondary: "+994" },
+                                        "BS": { primary: "(Bahamas)", secondary: "+1242" },
+                                        "BH": { primary: "(Bahrain)", secondary: "+973" },
+                                        "BD": { primary: "(Bangladesh)", secondary: "+880" },
+                                        "BB": { primary: "(Barbados)", secondary: "+1 246" },
+                                        "BY": { primary: "(Belarus)", secondary: "+375" },
+                                        "BE": { primary: "(Belgium)", secondary: "+32" },
+                                        "BZ": { primary: "(Belize)", secondary: "+501" },
+                                        "BJ": { primary: "(Benin)", secondary: "+229" },
+                                        "BM": { primary: "(Bermuda)", secondary: "+1 441" },
+                                        "BT": { primary: "(Bhutan)", secondary: "+975" },
+                                        "BO": { primary: "(Bolivia)", secondary: "+591" },
+                                        "BA": { primary: "(Bosnia and Herzegovina)", secondary: "+387" },
+                                        "BW": { primary: "(Botswana)", secondary: "+267" },
+                                        "BR": { primary: "(Brazil)", secondary: "+55" },
+                                        "IO": { primary: "(British Indian Ocean)", secondary: "+246" },
+                                        "BG": { primary: "(Bulgaria)", secondary: "+359" },
+                                        "BF": { primary: "(Burkina Faso)", secondary: "+226" },
+                                        "BI": { primary: "(Burundi)", secondary: "+257" },
+                                        "KH": { primary: "(Cambodia)", secondary: "+855" },
+                                        "CM": { primary: "(Cameroon)", secondary: "+237" },
+                                        "CA": { primary: "(Canada)", secondary: "+1" },
+                                        "CV": { primary: "(Cape Verde)", secondary: "+238" },
+                                        "KY": { primary: "(Cayman Islands)", secondary: "+1 345" },
+                                        "CF": { primary: "(Central African Republic)", secondary: "+236" },
+                                        "TD": { primary: "(Chad)", secondary: "+235" },
+                                        "CL": { primary: "(Chile)", secondary: "+56" },
+                                        "CN": { primary: "(China)", secondary: "+86" },
+                                        "CO": { primary: "(Colombia)", secondary: "+57" },
+                                        "KM": { primary: "(Comoros)", secondary: "+269" },
+                                        "CG": { primary: "(Congo)", secondary: "+242" },
+                                        "CD": { primary: "(Democratic Republic of the Congo)", secondary: "+243" },
+                                        "CK": { primary: "(Cook Islands)", secondary: "+682" },
+                                        "CR": { primary: "(Costa Rica)", secondary: "+506" },
+                                        "HR": { primary: "(Croatia)", secondary: "+385" },
+                                        "CU": { primary: "(Cuba)", secondary: "+53" },
+                                        "CW": { primary: "(Curaçao)", secondary: "+599" },
+                                        "CY": { primary: "(Cyprus)", secondary: "+357" },
+                                        "CZ": { primary: "(Czech Republic)", secondary: "+420" },
+                                        "DK": { primary: "(Denmark)", secondary: "+45" },
+                                        "DJ": { primary: "(Djibouti)", secondary: "+253" },
+                                        "DM": { primary: "(Dominica)", secondary: "+1 767" },
+                                        "DO": { primary: "(Dominican Republic)", secondary: "+1 809, 1 829, 1849" },
+                                        "EC": { primary: "(Ecuador)", secondary: "+593" },
+                                        "EG": { primary: "(Egypt)", secondary: "+20" },
+                                        "SV": { primary: "(El Salvador)", secondary: "+503" },
+                                        "GQ": { primary: "(Equatorial Guinea)", secondary: "+240" },
+                                        "ER": { primary: "(Eritrea)", secondary: "+291" },
+                                        "EE": { primary: "(Estonia)", secondary: "+372" },
+                                        "ET": { primary: "(Ethiopia)", secondary: "+251" },
+                                        "FK": { primary: "(Falkland Islands)", secondary: "+500" },
+                                        "FO": { primary: "(Faroe Islands)", secondary: "+298" },
+                                        "FJ": { primary: "(Fiji)", secondary: "+679" },
+                                        "FI": { primary: "(Finland)", secondary: "+358" },
+                                        "FR": { primary: "(France)", secondary: "+33" },
+                                        "PF": { primary: "(French Polynesia)", secondary: "+689" },
+                                        "GA": { primary: "(Gabon)", secondary: "+241" },
+                                        "GM": { primary: "(Gambia)", secondary: "+220" },
+                                        "GE": { primary: "(Georgia)", secondary: "+995" },
+                                        "DE": { primary: "(Germany)", secondary: "+49" },
+                                        "GH": { primary: "(Ghana)", secondary: "+233" },
+                                        "GI": { primary: "(Gibraltar)", secondary: "+350" },
+                                        "GR": { primary: "(Greece)", secondary: "+30" },
+                                        "GL": { primary: "(Greenland)", secondary: "+299" },
+                                        "GD": { primary: "(Grenada)", secondary: "+1 473" },
+                                        "GU": { primary: "(Guam)", secondary: "+1 671" },
+                                        "GT": { primary: "(Guatemala)", secondary: "+502" },
+                                        "GN": { primary: "(Guinea)", secondary: "+224" },
+                                        "GW": { primary: "(Guinea-Bissau)", secondary: "+245" },
+                                        "HT": { primary: "(Haiti)", secondary: "+509" },
+ 
+                                    }}
+                                    searchable
+                                    showSelectedLabel={false}
+	                                showSecondarySelectedLabel={true}
                                     placeholder="Select Code"
                                 />
                             </div>
@@ -265,7 +354,7 @@ function ClassicExperience({ onSuccess }: Props) {
                             </div>
                         </div>
 
-                        <div className={mb24 + ' fade-effect relative z-10'}>
+                        {/*<div className={mb24 + ' fade-effect relative z-10'}>
                             <label htmlFor="date" className={label_full}>
                                 Preferred Dates of Visit
                             </label>
@@ -304,7 +393,7 @@ function ClassicExperience({ onSuccess }: Props) {
                                     />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className={mb24 + ' fade-effect'}>
                             <label htmlFor="purpose_of_visit" className={label_full}>

@@ -85,7 +85,7 @@ function ExpressYourInterest({ onShowContact }) {
                     <div className="in_head mx-auto flex max-w-[356px] flex-col items-center">
                         <h1 className={'fade-box mb-[24px] ' + h1_class}>ELLERSTON GOLF ALL TO YOURSELF.</h1>
                         <span className="fade-box bg-colo inline-block rounded-[4px] bg-[#0000001f] px-[16px] py-[8px] text-[16px] leading-[32px] tracking-[8%] uppercase">
-                            8 experiences remaining for 2025
+                            Limited opportunities remaining for 2025
                         </span>
                     </div>
 
@@ -143,7 +143,7 @@ function ExpressYourInterest({ onShowContact }) {
                         </div>
                     </div>
                 </div>
-                <Footer />
+                
             </div>
         </section>
     );
