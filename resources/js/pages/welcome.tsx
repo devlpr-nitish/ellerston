@@ -5,7 +5,8 @@ import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import '../assets/css/custom.css';
 
-import ExpressForm from '@/components/ellerston/ExpressForm';
+import ClassicExperience from '@/components/ellerston/ClassicExperience';
+import SignatureExperience from '@/components/ellerston/SignatureExperience';
 import ThankYou from '@/components/ellerston/ThankYou';
 import gsap from 'gsap';
 import ScrollSmoother from 'gsap/ScrollSmoother';
@@ -20,27 +21,6 @@ export default function Welcome() {
     const contentRef = useRef<HTMLDivElement>(null);
 
     const expressRef = useRef<HTMLDivElement>(null); // add this at the top with your other refs
-
-    const handleCloseThankYou = () => {
-        // Step 1: Hide form
-        setShowContact(false);
-
-        // Step 2: Scroll to ExpressYourInterest section
-        setTimeout(() => {
-            if (expressRef.current) {
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: expressRef.current.offsetTop,
-                    ease: 'power2.out',
-                });
-            }
-        }, 300); // Wait for form to collapse first
-
-        // Step 3: Hide modal (trigger fade out inside modal first)
-        setTimeout(() => {
-            setShowThankYou(false);
-        }, 1000); // After scroll animation
-    };
 
     useEffect(() => {
         if (!wrapperRef.current || !contentRef.current) return;
@@ -57,36 +37,80 @@ export default function Welcome() {
         };
     }, []);
 
-    const [showContact, setShowContact] = useState(false);
+    const [showClassicExperience, setShowClassicExperience] = useState(false);
+    const [showSignatureExperience, setShowSignatureExperience] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
     const contactRef = useRef<HTMLDivElement>(null);
 
-    const scrollToContact = () => {
-        // First show the component
-        setShowContact(true);
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const scrollToContent = (source: string) => {
+        if (source === 'classic') {
+            setShowSignatureExperience(false);
+            setShowClassicExperience(true);
+            // Scroll after it appears
+            setTimeout(() => {
+                if (contactRef.current) {
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: contactRef.current.offsetTop,
+                        ease: 'power2.out',
+                        delay: 0.3,
+                    });
+                }
+            }, 100); // ensure DOM mount
+        }
+        if (source === 'signature') {
+            setShowClassicExperience(false);
+            setShowSignatureExperience(true);
 
-        // Scroll after it appears
-        setTimeout(() => {
-            if (contactRef.current) {
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: contactRef.current.offsetTop,
-                    ease: 'power2.out',
-                    delay: 0.5,
-                });
-            }
-        }, 100); // ensure DOM mount
+            // Scroll after it appears
+            setTimeout(() => {
+                if (contactRef.current) {
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: contactRef.current.offsetTop,
+                        ease: 'power2.out',
+                        delay: 0.3,
+                    });
+                }
+            }, 100); // ensure DOM mount
+        }
     };
+    const handleCloseThankYou = async () => {
+        // Step 1: Hide form
+        setShowClassicExperience(false);
+        setShowSignatureExperience(false);
+
+        // Step 2: Scroll to ExpressYourInterest section
+        await delay(300);
+        if (expressRef.current) {
+            gsap.to(window, {
+                duration: 1,
+                scrollTo: '#experience_wrap',
+                ease: 'power2.out',
+            });
+        }
+
+        // Step 3: Hide modal (trigger fade out inside modal first)
+        await delay(2000);
+        setShowThankYou(false);
+    };
+
     return (
         <>
             <TopBar />
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
                     <HeroScreen />
-                    <ExpressYourInterest onShowContact={scrollToContact} />
-                    {showContact && (
+                    <ExpressYourInterest onShowContact={scrollToContent} />
+                    {showClassicExperience && (
                         <div ref={contactRef}>
-                            <ExpressForm onShowContact={scrollToContact} onSuccess={() => setShowThankYou(true)} />
+                            <ClassicExperience onShowContact={scrollToContent} onSuccess={() => setShowThankYou(true)} />
+                        </div>
+                    )}
+                    {showSignatureExperience && (
+                        <div ref={contactRef}>
+                            <SignatureExperience onShowContact={scrollToContent} onSuccess={() => setShowThankYou(true)} />
                         </div>
                     )}
                 </div>

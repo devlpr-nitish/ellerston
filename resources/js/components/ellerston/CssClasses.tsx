@@ -6,7 +6,7 @@ export const p_sm_class = 'text-[16px] leading-[20px] tracking-[2%]';
 export const mb24 = 'mb-[24px]';
 export const label_full = 'block text-[16px] leading-[24px] tracking-[12%] py-[8px] uppercase';
 export const feild_class =
-    'placeholder w-full rounded-[4px] border-[1px] border-solid border-[#939191] px-[16px] py-[12px] text-[16px] leading-[24px] tracking-[12%] text-white placeholder-[##B4B4B4]';
+    'placeholder-[#B4B4B4] w-full rounded-[4px] border-[1px] border-solid border-[#939191] px-[16px] py-[12px] text-[16px] leading-[24px] tracking-[12%] text-white placeholder-[##B4B4B4]';
 
 export const line_style = 'my-[16px] block h-[1px] bg-white';
 export const button_style =

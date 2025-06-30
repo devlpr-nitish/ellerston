@@ -16,7 +16,7 @@ function TopBar() {
 
             if (targetElement) {
                 gsap.to(window, {
-                    duration: 1,
+                    duration: 0.5,
                     scrollTo: {
                         y: targetElement,
                         offsetY: 0, // optional: offset from top
@@ -30,7 +30,7 @@ function TopBar() {
         <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 1 }}
+            transition={{ duration: 1.2, delay: 0.5 }}
             className="top_bar fixed top-0 left-0 z-20 flex w-full items-center justify-between"
         >
             <div className="logo">

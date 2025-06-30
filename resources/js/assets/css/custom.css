@@ -135,11 +135,11 @@ option {
     transform: rotate(-45deg);
 }
 
-.from_container {
+.form_container {
     overflow: hidden;
 }
 
-.from_container .bg-black-light {
+.form_container .bg-black-light {
     content: "";
     display: block;
     top: 0;
@@ -182,4 +182,43 @@ option {
 .thanks_bg {
     background: #fff url(../img/thanks_bg.jpg) no-repeat center;
     background-size: cover;
+}
+
+.country_drop {
+    border: #939191 solid 1px;
+    border-radius: 4px;
+    padding-bottom: 0 !important;
+}
+
+.country_drop #rfs-btn {
+    color: #fff;
+    padding: 8px 16px;
+    text-transform: uppercase;
+}
+
+.country_drop ul {
+    color: #000;
+    font-size: 14px;
+    letter-spacing: 2%;
+    border: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.country_drop .ReactFlagsSelect-module_selectValue__152eS {
+    padding: 0;
+}
+
+.country_drop .ReactFlagsSelect-module_selectBtn__19wW7[aria-expanded="true"]::after,
+.country_drop .ReactFlagsSelect-module_selectBtn__19wW7::after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 7px;
+    background: url('../img/arrow.svg') no-repeat center;
+    background-size: contain;
+    transform: rotate(0deg);
+    margin-left: 8px;
+    vertical-align: middle;
+    border: 0;
 }
