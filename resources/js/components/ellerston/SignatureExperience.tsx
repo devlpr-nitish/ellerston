@@ -421,7 +421,7 @@ function SignatureExperience({ onSuccess }: Props) {
                             <label htmlFor="date" className={label_full}>
                                 Preferred Dates of Visit
                             </label>
-                            <div className="flex gap-[24px]">
+                            <div className="flex gap-[24px] relative z-10">
                                 <div className="w-4/12">
                                     <Select
                                         options={selectdate}
@@ -457,20 +457,7 @@ function SignatureExperience({ onSuccess }: Props) {
                                 </div>
                             </div>
                         </div>
-                        
-                        <div className={mb24 + ' fade-effect'}>
-                            <label htmlFor="purpose_of_visit" className={label_full}>
-                                PURPOSE OF VISIT
-                            </label>
-                            <textarea
-                                name="purpose_of_visit"
-                                value={formData.purpose_of_visit}
-                                onChange={handleChange}
-                                placeholder="(MAX 250 WORDS)"
-                                className={feild_class + ' min-h-[124px]'}
-                            ></textarea>
-                        </div>
-                        <div className={mb24 + ' fade-effect relative z-10'}>
+                        <div className={mb24 + ' fade-effect relative z-8'}>
                             <label htmlFor="groupsize" className={label_full}>
                                    Preferred number of nights
                                 </label>
@@ -484,6 +471,19 @@ function SignatureExperience({ onSuccess }: Props) {
                                         styles={sharedSelectStyles}
                                     />
                         </div>
+                        <div className={mb24 + ' fade-effect'}>
+                            <label htmlFor="purpose_of_visit" className={label_full}>
+                                PURPOSE OF VISIT
+                            </label>
+                            <textarea
+                                name="purpose_of_visit"
+                                value={formData.purpose_of_visit}
+                                onChange={handleChange}
+                                placeholder="(MAX 250 WORDS)"
+                                className={feild_class + ' min-h-[124px]'}
+                            ></textarea>
+                        </div>
+                        
 
                         <div className={mb24 + ' fade-effect'}>
                             <label htmlFor="current_memberships" className={label_full}>
