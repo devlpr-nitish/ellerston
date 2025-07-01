@@ -195,8 +195,9 @@ option {
     padding: 8px 16px;
     text-transform: uppercase;
 }
-.country_drop #rfs-btn .ReactFlagsSelect-module_secondaryLabel__37t1D{
-    color:#fff !important;
+
+.country_drop #rfs-btn .ReactFlagsSelect-module_secondaryLabel__37t1D {
+    color: #fff !important;
 }
 
 .country_drop ul {
@@ -225,4 +226,15 @@ option {
     margin-left: 8px;
     vertical-align: middle;
     border: 0;
+}
+
+#rfs-btn span {
+    padding: 0;
+}
+
+#rfs-btn span[data-testid="rfs-selected-flag"] {
+    display: none !important;
+}
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }

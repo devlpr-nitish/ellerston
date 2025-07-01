@@ -8,11 +8,11 @@ import { useEffect, useRef } from 'react';
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const texts = [
-    'NESTLED WITHIN A FAMILY SANCTUARY.',
+    'SET WITHIN A SECLUDED FAMILY SANCTUARY',
     'CARVED FROM AN ANCIENT LAND.',
     'A COURSE FEW WILL EVER PLAY',
     'ALL YOURS',
-    'SET WITHIN A SECLUDED FAMILY SANCTUARY',
+    'IF ONLY FOR A MOMENT',
     'WELCOME TO ELLERSTON GOLF.',
 ];
 
@@ -31,17 +31,16 @@ function HeroScreen() {
             texts.forEach((_, i) => {
                 const slide = slidesRef.current[i];
                 if (!slide) return;
-                if (i === 0) {
-                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
-                } else {
-                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
-                    if (i === 1) {
-                        tl.fromTo('.keep_scrooling, .scroll-down', { opacity: 0 }, { opacity: 1, duration: 0.5 });
-                    }
+
+                tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
+                if (i === 2) {
+                    tl.fromTo('.keep_scrooling, .scroll-down', { opacity: 0 }, { opacity: 1, duration: 1, color: '#9d9d9d' });
                 }
+
                 if (i < texts.length - 1) {
                     tl.to(slide, { opacity: 0, duration: 1, delay: 1 });
                 } else {
+                    tl.to('.keep_scrooling, .scroll-down', { color: '#fff' });
                     tl.fromTo('.homescreen', { opacity: 0.3 }, { opacity: 1, duration: 1 });
                 }
             });
