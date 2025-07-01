@@ -484,7 +484,21 @@ function ClassicExperience({ onSuccess }: Props) {
                                 />
                             </div>
                         </div>
-
+                        <div className={mb24 + ' fade-effect'}>
+                            <label htmlFor="email" className={label_full}>
+                                Preferred Dates of Visit
+                            </label>
+                            <input
+                                type="month"
+                                min="2025-07"
+                                max="2032-12"
+                                name="date_of_visit"
+                                value={formData.date_of_visit}
+                                onChange={handleChange}
+                                placeholder="Choose Date"
+                                className={feild_class}
+                            />
+                        </div>            
                         {/*<div className={mb24 + ' fade-effect relative z-10'}>
                             <label htmlFor="date" className={label_full}>
                                 Preferred Dates of Visit
