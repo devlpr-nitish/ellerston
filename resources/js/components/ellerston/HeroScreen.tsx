@@ -12,7 +12,7 @@ const texts = [
     'CARVED FROM AN ANCIENT LAND.',
     'A COURSE FEW WILL EVER PLAY',
     'ALL YOURS',
-    'IF ONLY FOR A MOMENT',
+    'IF ONLY FOR A DAY',
     'WELCOME TO ELLERSTON GOLF.',
 ];
 
