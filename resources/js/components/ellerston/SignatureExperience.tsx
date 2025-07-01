@@ -142,7 +142,7 @@ function SignatureExperience({ onSuccess }: Props) {
                         To express interest for the waitlist please enter details below.
                     </h3>
                     <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
-                        The CLASSIC experience starts at $25,000 AUD per guest (Minimum of 4 guests per group)
+                        The Signature experience starts at $38,000 AUD per guest (Minimum of 4 guests per group)
                     </p>
                     <hr className="fade-effect my-[48px] h-[1px] bg-white" />
 

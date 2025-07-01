@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const texts = [
     'SET WITHIN A SECLUDED FAMILY SANCTUARY',
-    'CARVED FROM AN ANCIENT LAND.',
+    'CARVED FROM AN ANCIENT LAND',
     'A COURSE FEW WILL EVER PLAY',
     'ALL YOURS',
     'IF ONLY FOR A DAY',
