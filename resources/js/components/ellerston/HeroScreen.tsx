@@ -13,7 +13,7 @@ const texts = [
     'A COURSE FEW WILL EVER PLAY',
     'ALL YOURS',
     'IF ONLY FOR A DAY',
-    'WELCOME TO ELLERSTON GOLF.',
+    'WELCOME TO ELLERSTON GOLF',
 ];
 
 function HeroScreen() {
