@@ -13,7 +13,7 @@ export const sharedSelectStyles: StylesConfig = {
             borderColor: '#939191',
         },
         borderRadius: '4px',
-        padding: '6px 6px 6px 4px',
+        padding: '6px 6px 6px 6px',
         minHeight: '40px',
         color: '#fff',
     }),
