@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const texts = [
-    'SET WITHIN A SECLUDED FAMILY SANCTUARY123',
+    'SET WITHIN A SECLUDED FAMILY SANCTUARY',
     'CARVED FROM AN ANCIENT LAND',
     'A COURSE FEW WILL EVER PLAY',
     'ALL YOURS',
