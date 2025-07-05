@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
+import { scrollToTarget } from './utils/scrollToTarget';
 
 gsap.registerPlugin(ScrollTrigger);
 function ExpressYourInterest({ onShowContact }) {
@@ -77,18 +78,20 @@ function ExpressYourInterest({ onShowContact }) {
     }, []);
 
     return (
-        <section id="experience_wrap" className="section min-h-screen w-full items-center bg-black">
-            <div className="experience_wrap relative h-screen">
+        <section id="experience_wrap" className="section w-full items-center bg-black">
+            <div className="experience_wrap relative min-h-screen">
                 <div className="express_bg absolute top-0 left-0 z-0 h-full w-full"></div>
-                <div className="relative z-10 mx-auto flex h-full max-w-[1050px] flex-col items-center justify-center py-[120px]">
-                    <div className="in_head mx-auto flex flex-col items-center">
-                        <h1 className={'fade-box mb-[24px] max-w-[386px] ' + h1_class}>ELLERSTON GOLF ALL TO YOURSELF.</h1>
-                        <span className="fade-box bg-colo inline-block rounded-[4px] bg-[#0000001f] px-[16px] py-[8px] text-[16px] leading-[32px] tracking-[8%] uppercase">
+                <div className="relative z-10 mx-auto flex h-full max-w-[1130px] flex-col items-center justify-center py-[120px]">
+                    <div className="in_head mx-auto flex flex-col items-center px-[20px]">
+                        <h1 className={'fade-box mb-[24px] max-w-[280px] sm:max-w-[320px] md:max-w-[370px] lg:max-w-[386px] ' + h1_class}>
+                            ELLERSTON GOLF ALL TO YOURSELF.
+                        </h1>
+                        <span className="fade-box bg-colo inline-block rounded-[4px] bg-[#0000001f] px-[16px] py-[8px] text-center text-[16px] leading-[24px] tracking-[8%] uppercase md:leading-[32px]">
                             Limited opportunities remaining for 2025
                         </span>
                     </div>
 
-                    <div className="sec_body grid grid-cols-2 gap-[250px] pt-[110px]">
+                    <div className="sec_body grid grid-cols-1 gap-[64px] px-[40px] pt-[64px] sm:gap-[5vw] sm:pt-[70px] md:grid-cols-2 md:gap-[8vw] md:pt-[80px] lg:gap-[13vw] lg:pt-[90px] xl:gap-[250px] xl:pt-[110px]">
                         <div className="fade-box2">
                             <h3 className={h3_class}>CLASSIC EXPERIENCE</h3>
                             <h5 className={h5_class}>1 day</h5>
@@ -98,7 +101,11 @@ function ExpressYourInterest({ onShowContact }) {
                             </p>
                             <div className="linkdiv">
                                 <Link
-                                    onClick={() => onShowContact('classic')}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        scrollToTarget('#classic_experience');
+                                        onShowContact('classic');
+                                    }}
                                     className={button_style + ' btn_arrow scroll-link'}
                                     href="#classic_experience"
                                 >
@@ -124,7 +131,11 @@ function ExpressYourInterest({ onShowContact }) {
                             </p>
                             <div className="linkdiv">
                                 <Link
-                                    onClick={() => onShowContact('signature')}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        scrollToTarget('#classic_experience');
+                                        onShowContact('signature');
+                                    }}
                                     className={button_style + ' btn_arrow scroll-link'}
                                     href="#classic_experience"
                                 >

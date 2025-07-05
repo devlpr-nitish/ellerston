@@ -6,6 +6,7 @@ import { usePage } from '@inertiajs/react';
 import '../assets/css/custom.css';
 
 import ClassicExperience from '@/components/ellerston/ClassicExperience';
+import ImageGallery from '@/components/ellerston/ImageGallery';
 import SignatureExperience from '@/components/ellerston/SignatureExperience';
 import ThankYou from '@/components/ellerston/ThankYou';
 import gsap from 'gsap';
@@ -39,6 +40,7 @@ export default function Welcome() {
 
     const [showClassicExperience, setShowClassicExperience] = useState(false);
     const [showSignatureExperience, setShowSignatureExperience] = useState(false);
+    const [showImageGallery, setshowImageGallery] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
     const contactRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +77,9 @@ export default function Welcome() {
                 }
             }, 100); // ensure DOM mount
         }
+        if (source === 'imagegallery') {
+            setshowImageGallery(true);
+        }
     };
     const handleCloseThankYou = async () => {
         // Step 1: Hide form
@@ -95,10 +100,14 @@ export default function Welcome() {
         await delay(2000);
         setShowThankYou(false);
     };
+    const handleClosegallery = async () => {
+        await delay(1000);
+        setshowImageGallery(false);
+    };
 
     return (
         <>
-            <TopBar />
+            <TopBar onShowContact={scrollToContent} />
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
                     <HeroScreen />
@@ -115,6 +124,7 @@ export default function Welcome() {
                     )}
                 </div>
             </div>
+            {showImageGallery && <ImageGallery onClose={handleClosegallery} />}
             {showThankYou && <ThankYou onClose={handleCloseThankYou} />}
         </>
     );
