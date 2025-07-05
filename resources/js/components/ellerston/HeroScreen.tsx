@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
+import { scrollToTarget } from './utils/scrollToTarget';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -19,67 +20,74 @@ const texts = [
 function HeroScreen() {
     const containerRef = useRef<HTMLDivElement>(null);
     const slidesRef = useRef<HTMLDivElement[]>([]);
-    const scrollTriggerRef = useRef<ScrollTrigger>();
-    const timelineRef = useRef<gsap.core.Timeline>();
-    const autoScrollTweenRef = useRef<gsap.core.Tween>();
+    const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+    const timelineRef = useRef<gsap.core.Timeline | null>(null);
+    const autoScrollTweenRef = useRef<gsap.core.Tween | null>(null);
     const restartTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    const startAutoScroll = () => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const targetY = container.offsetTop + container.offsetHeight;
+
+        autoScrollTweenRef.current?.kill();
+        autoScrollTweenRef.current = gsap.to(window, {
+            scrollTo: { y: targetY, autoKill: true },
+            duration: texts.length * 2,
+            ease: 'none',
+            onUpdate: () => ScrollTrigger.update(),
+        });
+    };
+
     useEffect(() => {
-        const createTimeline = () => {
-            const tl = gsap.timeline();
-
-            texts.forEach((_, i) => {
-                const slide = slidesRef.current[i];
-                if (!slide) return;
-
-                tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
-                if (i === 2) {
-                    tl.fromTo('.keep_scrooling, .scroll-down', { opacity: 0 }, { opacity: 1, duration: 1, color: '#9d9d9d' });
-                }
-
-                if (i < texts.length - 1) {
-                    tl.to(slide, { opacity: 0, duration: 1, delay: 1 });
-                } else {
-                    tl.to('.keep_scrooling, .scroll-down', { color: '#fff' });
-                    tl.fromTo('.homescreen', { opacity: 0.3 }, { opacity: 1, duration: 1 });
-                }
-            });
-
-            return tl;
-        };
+        if (!containerRef.current) return;
 
         const ctx = gsap.context(() => {
-            const tl = createTimeline();
-            timelineRef.current = tl;
+            const createTimeline = () => {
+                const tl = gsap.timeline();
+
+                texts.forEach((_, i) => {
+                    const slide = slidesRef.current[i];
+                    if (!slide) return;
+
+                    tl.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 1 });
+
+                    if (i === 2) {
+                        tl.fromTo('.keep_scrooling, .scroll-down', { opacity: 0 }, { opacity: 1, duration: 1, color: '#9d9d9d' });
+                    }
+
+                    if (i < texts.length - 1) {
+                        tl.to(slide, { opacity: 0, duration: 1, delay: 1 });
+                    } else {
+                        tl.to('.keep_scrooling, .scroll-down', { color: '#fff' });
+                        tl.fromTo('.homescreen', { opacity: 0.3 }, { opacity: 1, duration: 1 });
+                    }
+                });
+
+                return tl;
+            };
+
+            const timeline = createTimeline();
+            timelineRef.current = timeline;
 
             const st = ScrollTrigger.create({
-                animation: tl,
+                animation: timeline,
                 trigger: containerRef.current,
                 pin: true,
                 scrub: true,
                 start: 'top top',
-                end: `+=${texts.length * window.innerHeight * 0.6}px`,
+                end: () => `+=${texts.length * window.innerHeight * 0.6}`,
                 invalidateOnRefresh: true,
             });
 
             scrollTriggerRef.current = st;
             ScrollTrigger.refresh();
 
-            const scrollEnd = st.end; // OR manually calculate
-            const scrollToY = containerRef.current!.offsetTop + containerRef.current!.offsetHeight;
-            // const scrollToY = containerRef.current!.offsetTop + st.end!;
-            const autoScroll = gsap.to(window, {
-                scrollTo: { y: scrollToY, autoKill: true },
-                duration: texts.length * 2,
-                ease: 'none',
-                onUpdate: () => {
-                    ScrollTrigger.update();
-                },
-            });
-            autoScrollTweenRef.current = autoScroll;
+            startAutoScroll();
 
             const killAutoScroll = () => {
-                autoScroll.kill();
+                autoScrollTweenRef.current?.kill();
                 window.removeEventListener('wheel', killAutoScroll);
                 window.removeEventListener('touchstart', killAutoScroll);
             };
@@ -87,75 +95,120 @@ function HeroScreen() {
             window.addEventListener('wheel', killAutoScroll);
             window.addEventListener('touchstart', killAutoScroll);
 
-            const handleScrollInterrupt = (direction: 'enter' | 'enterBack' | 'leave' | 'leaveBack') => {
-                // Kill any running auto-scroll
+            const handleScrollInterrupt = () => {
                 autoScrollTweenRef.current?.kill();
                 if (restartTimeoutRef.current) clearTimeout(restartTimeoutRef.current);
 
                 restartTimeoutRef.current = setTimeout(() => {
                     const st = scrollTriggerRef.current;
+                    if (!st || !containerRef.current) return;
+
                     const currentScroll = window.scrollY;
-                    const targetScroll = containerRef.current!.offsetTop + st!.end;
+                    const containerTop = containerRef.current.offsetTop;
+                    const scrollEnd = st.end ?? 0;
+                    const totalScrollLength = scrollEnd;
+                    const progress = (currentScroll - containerTop) / totalScrollLength;
 
-                    const remainingScroll = targetScroll - currentScroll;
-                    if (remainingScroll <= 0) return;
-
-                    // Reset timeline progress based on scroll position
-                    const totalScrollLength = st!.end;
-                    const progress = (currentScroll - containerRef.current!.offsetTop) / totalScrollLength;
                     timelineRef.current?.pause().progress(progress).play();
 
-                    // Restart auto-scroll
+                    const remainingScroll = containerTop + scrollEnd - currentScroll;
+                    if (remainingScroll <= 0) return;
+
                     autoScrollTweenRef.current = gsap.to(window, {
-                        scrollTo: { y: targetScroll, autoKill: true },
+                        scrollTo: { y: containerTop + scrollEnd, autoKill: true },
                         duration: texts.length * 2 * (remainingScroll / totalScrollLength),
                         ease: 'none',
                         onUpdate: () => ScrollTrigger.update(),
                     });
                 }, 3000);
             };
+
             ScrollTrigger.create({
                 trigger: containerRef.current,
                 start: 'top top',
                 end: 'bottom bottom',
-                onEnter: () => handleScrollInterrupt('enter'),
-                onEnterBack: () => handleScrollInterrupt('enterBack'),
-                onLeave: () => handleScrollInterrupt('leave'),
-                onLeaveBack: () => handleScrollInterrupt('leaveBack'),
+                onEnter: handleScrollInterrupt,
+                onEnterBack: handleScrollInterrupt,
+                onLeave: handleScrollInterrupt,
+                onLeaveBack: handleScrollInterrupt,
             });
 
-            const handleScrollCheck = () => {
-                const st = scrollTriggerRef.current;
-                const containerTop = containerRef.current!.offsetTop;
-                const containerBottom = containerTop + st!.end;
-
-                const currentScroll = window.scrollY;
-
-                // Check if user is scrolling within the pinned section
-                if (currentScroll >= containerTop && currentScroll <= containerBottom) {
-                    handleScrollInterrupt('within');
-                }
-            };
-
-            // Debounce to avoid firing too rapidly
             let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
             const debouncedScroll = () => {
                 if (scrollTimeout) clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(handleScrollCheck, 100);
+                scrollTimeout = setTimeout(() => {
+                    if (!containerRef.current || !scrollTriggerRef.current) return;
+
+                    const containerTop = containerRef.current.offsetTop;
+                    const containerBottom = containerTop + scrollTriggerRef.current.end;
+                    const currentScroll = window.scrollY;
+
+                    if (currentScroll >= containerTop && currentScroll <= containerBottom) {
+                        handleScrollInterrupt();
+                    }
+                }, 100);
             };
 
             window.addEventListener('scroll', debouncedScroll, { passive: true });
+
+            return () => {
+                window.removeEventListener('scroll', debouncedScroll);
+                window.removeEventListener('wheel', killAutoScroll);
+                window.removeEventListener('touchstart', killAutoScroll);
+                scrollTimeout && clearTimeout(scrollTimeout);
+            };
         }, containerRef);
 
         return () => {
             ctx.revert();
-            if (restartTimeoutRef.current) clearTimeout(restartTimeoutRef.current);
+            restartTimeoutRef.current && clearTimeout(restartTimeoutRef.current);
         };
     }, []);
-    window.addEventListener('resize', () => {
-        ScrollTrigger.refresh();
-    });
+
+    useEffect(() => {
+        let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
+
+        const handleResize = () => {
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+
+            resizeTimeout = setTimeout(() => {
+                const container = containerRef.current;
+                if (!container) return;
+
+                const scrollY = window.scrollY;
+                const containerTop = container.offsetTop;
+                const containerBottom = containerTop + container.offsetHeight;
+
+                const isWithin = scrollY >= containerTop && scrollY <= containerBottom;
+
+                if (isWithin) {
+                    // ✅ Scroll to top of the section
+                    window.scrollTo({ top: containerTop, behavior: 'auto' });
+
+                    // ✅ Refresh ScrollTrigger & recalculate
+                    ScrollTrigger.refresh();
+
+                    // ✅ Restart auto-scroll to bottom of section
+                    const targetY = container.offsetTop + container.offsetHeight;
+                    autoScrollTweenRef.current?.kill();
+                    autoScrollTweenRef.current = gsap.to(window, {
+                        scrollTo: { y: targetY, autoKill: true },
+                        duration: texts.length * 2,
+                        ease: 'none',
+                        onUpdate: () => ScrollTrigger.update(),
+                    });
+                }
+            }, 200);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+        };
+    }, []);
 
     return (
         <section className="section relative min-h-screen w-full overflow-hidden bg-black">
@@ -164,16 +217,28 @@ function HeroScreen() {
                 <div className="relative mb-[16px] h-[100px] w-full">
                     {texts.map((text, i) => (
                         <div
-                            className="absolute right-0 bottom-0 left-0 text-center text-[28px] leading-[32px] tracking-[2%] opacity-0"
                             key={i}
-                            ref={(el) => (slidesRef.current[i] = el!)}
+                            ref={(el) => {
+                                if (el) slidesRef.current[i] = el;
+                            }}
+                            className="absolute right-[40px] bottom-0 left-[40px] text-center text-[28px] leading-[32px] tracking-[2%] opacity-0"
                         >
                             {text}
                         </div>
                     ))}
                 </div>
                 <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">
-                    <Link href="#experience_wrap" className="scroll-link">
+                    <Link
+                        href="#experience_wrap"
+                        className="scroll-link"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            const targetEl = document.querySelector('#experience_wrap');
+                            if (targetEl) {
+                                scrollToTarget('#experience_wrap');
+                            }
+                        }}
+                    >
                         KEEP SCROLLING
                     </Link>
                 </div>

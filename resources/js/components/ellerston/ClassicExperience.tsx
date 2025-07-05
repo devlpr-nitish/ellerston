@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useState } from 'react';
 import ReactFlagsSelect from 'react-flags-select';
 import Select from 'react-select';
-import { button_style, feild_class, h1_class, h3_class, label_full, mb24, p_sm_class } from './CssClasses';
+import { button_style, feild_class, gap24, h1_class, h3_class, label_full, mb24, p_sm_class } from './CssClasses';
 import Footer from './Footer';
 import { CustomDropdownIndicator, sharedSelectStyles } from './SelectStyle';
 
@@ -125,23 +125,25 @@ function ClassicExperience({ onSuccess }: Props) {
 
     return (
         <section id="classic_experience" className="form_wrap section w-full items-center bg-black">
-            <div className="relative py-[144px]">
+            <div className="relative px-[32px] py-[144px]">
                 <div className="form_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
-                <div className="form_container relative z-10 mx-auto max-w-[856px] px-[110px] py-[120px]">
+                <div className="form_container relative z-10 mx-auto max-w-[856px] px-[24px] py-[64px] sm:px-[30px] sm:py-[70px] md:px-[50px] md:py-[80px] lg:px-[90px] lg:py-[100px] xl:px-[110px] xl:py-[120px]">
                     <span className="bg-black-light"></span>
-                    <h1 className={h1_class + ' fade-effect mb-[24px]'}>CLASSIC EXPERIENCE</h1>
-                    <h3 className={h3_class + ' fade-effect mb-[24px] text-center'}>
-                        To express interest for the waitlist please enter details below.
-                    </h3>
-                    <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
-                        The CLASSIC experience starts at $25,000 AUD per guest (Minimum of 4 guests per group)
-                    </p>
+                    <div className="px-[16px]">
+                        <h1 className={h1_class + mb24 + ' fade-effect'}>CLASSIC EXPERIENCE</h1>
+                        <h3 className={h3_class + mb24 + ' fade-effect text-center'}>
+                            To express interest for the waitlist please enter details below.
+                        </h3>
+                        <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
+                            The CLASSIC experience starts at $25,000 AUD per guest (Minimum of 4 guests per group)
+                        </p>
+                    </div>
                     <hr className="fade-effect my-[48px] h-[1px] bg-white" />
 
                     <form onSubmit={handleSubmit} className="fromstyle">
-                        <div className={mb24 + ' fade-effect flex gap-[24px]'}>
-                            <div className="w-1/2">
+                        <div className={mb24 + gap24 + ' fade-effect flex flex-wrap md:flex-nowrap'}>
+                            <div className="w-full md:w-1/2">
                                 <label htmlFor="firstname" className={label_full}>
                                     FIRST NAME
                                 </label>
@@ -154,7 +156,7 @@ function ClassicExperience({ onSuccess }: Props) {
                                     className={feild_class}
                                 />
                             </div>
-                            <div className="w-1/2">
+                            <div className="w-full md:w-1/2">
                                 <label htmlFor="lastname" className={label_full}>
                                     Last NAME
                                 </label>
@@ -183,8 +185,8 @@ function ClassicExperience({ onSuccess }: Props) {
                             />
                         </div>
 
-                        <div className={mb24 + ' fade-effect relative z-10 flex gap-[24px]'}>
-                            <div className="w-2/12">
+                        <div className={mb24 + gap24 + ' fade-effect relative z-30 flex'}>
+                            <div className="w-[97px]">
                                 <label htmlFor="code" className={label_full}>
                                     Code
                                 </label>
@@ -423,7 +425,7 @@ function ClassicExperience({ onSuccess }: Props) {
                                     placeholder="Select Code"
                                 />
                             </div>
-                            <div className="w-10/12">
+                            <div className="w-[calc(100%_-_97px)]">
                                 <label htmlFor="telephone_number" className={label_full}>
                                     Telephone Number
                                 </label>
@@ -452,8 +454,8 @@ function ClassicExperience({ onSuccess }: Props) {
                             />
                         </div>
 
-                        <div className={mb24 + ' fade-effect relative z-20 flex gap-[24px]'}>
-                            <div className="w-1/2">
+                        <div className={mb24 + gap24 + ' fade-effect relative z-20 flex flex-wrap md:flex-nowrap'}>
+                            <div className="w-full md:w-1/2">
                                 <label htmlFor="handicap" className={label_full}>
                                     HANDICAP
                                 </label>
@@ -468,7 +470,7 @@ function ClassicExperience({ onSuccess }: Props) {
                                     components={{ DropdownIndicator: CustomDropdownIndicator }}
                                 />
                             </div>
-                            <div className="w-1/2">
+                            <div className="w-full md:w-1/2">
                                 <label htmlFor="groupsize" className={label_full}>
                                     GROUP SIZE
                                 </label>
@@ -498,7 +500,8 @@ function ClassicExperience({ onSuccess }: Props) {
                                 placeholder="Choose Date"
                                 className={feild_class}
                             />
-                        </div>            
+                        </div>
+
                         {/*<div className={mb24 + ' fade-effect relative z-10'}>
                             <label htmlFor="date" className={label_full}>
                                 Preferred Dates of Visit
@@ -577,7 +580,7 @@ function ClassicExperience({ onSuccess }: Props) {
                             </label>
                         </div>
 
-                        <div className="fade-effect pt-[24px]">
+                        <div className="fade-effect pt-[14px] text-center md:pt-[24px]">
                             <button type="submit" className={button_style + ' btn_arrow m-auto'}>
                                 <span>
                                     <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
