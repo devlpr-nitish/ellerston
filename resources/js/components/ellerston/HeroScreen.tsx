@@ -24,6 +24,7 @@ function HeroScreen() {
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
     const autoScrollTweenRef = useRef<gsap.core.Tween | null>(null);
     const restartTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const startAutoScroll = () => {
         const container = containerRef.current;
@@ -75,9 +76,9 @@ function HeroScreen() {
                 animation: timeline,
                 trigger: containerRef.current,
                 pin: true,
-                scrub: true,
+                scrub: 0.5,
                 start: 'top top',
-                end: () => `+=${texts.length * window.innerHeight * 0.6}`,
+                end: () => `+=${containerRef.current?.offsetHeight || 0}`,
                 invalidateOnRefresh: true,
             });
 
@@ -88,12 +89,15 @@ function HeroScreen() {
 
             const killAutoScroll = () => {
                 autoScrollTweenRef.current?.kill();
+                autoScrollTweenRef.current = null;
                 window.removeEventListener('wheel', killAutoScroll);
                 window.removeEventListener('touchstart', killAutoScroll);
+                window.removeEventListener('touchmove', killAutoScroll);
             };
 
-            window.addEventListener('wheel', killAutoScroll);
-            window.addEventListener('touchstart', killAutoScroll);
+            window.addEventListener('wheel', killAutoScroll, { passive: true });
+            window.addEventListener('touchstart', killAutoScroll, { passive: true });
+            window.addEventListener('touchmove', killAutoScroll, { passive: true });
 
             const handleScrollInterrupt = () => {
                 autoScrollTweenRef.current?.kill();
@@ -101,15 +105,18 @@ function HeroScreen() {
 
                 restartTimeoutRef.current = setTimeout(() => {
                     const st = scrollTriggerRef.current;
-                    if (!st || !containerRef.current) return;
+                    const container = containerRef.current;
+                    if (!st || !container) return;
 
                     const currentScroll = window.scrollY;
-                    const containerTop = containerRef.current.offsetTop;
-                    const scrollEnd = st.end ?? 0;
+                    const containerTop = container.offsetTop;
+                    const scrollEnd = typeof st.end === 'function' ? st.end() : (st.end ?? 0);
                     const totalScrollLength = scrollEnd;
                     const progress = (currentScroll - containerTop) / totalScrollLength;
+                    const clampedProgress = Math.max(0, Math.min(1, progress));
 
-                    timelineRef.current?.pause().progress(progress).play();
+                    timelineRef.current?.pause();
+                    timelineRef.current?.progress(clampedProgress).play();
 
                     const remainingScroll = containerTop + scrollEnd - currentScroll;
                     if (remainingScroll <= 0) return;
@@ -120,7 +127,7 @@ function HeroScreen() {
                         ease: 'none',
                         onUpdate: () => ScrollTrigger.update(),
                     });
-                }, 3000);
+                }, 3000); // Delay before restart
             };
 
             ScrollTrigger.create({
@@ -133,15 +140,16 @@ function HeroScreen() {
                 onLeaveBack: handleScrollInterrupt,
             });
 
-            let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
-
             const debouncedScroll = () => {
-                if (scrollTimeout) clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
+                if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+                scrollTimeoutRef.current = setTimeout(() => {
                     if (!containerRef.current || !scrollTriggerRef.current) return;
 
                     const containerTop = containerRef.current.offsetTop;
-                    const containerBottom = containerTop + scrollTriggerRef.current.end;
+                    const scrollEnd =
+                        typeof scrollTriggerRef.current.end === 'function' ? scrollTriggerRef.current.end() : (scrollTriggerRef.current.end ?? 0);
+
+                    const containerBottom = containerTop + scrollEnd;
                     const currentScroll = window.scrollY;
 
                     if (currentScroll >= containerTop && currentScroll <= containerBottom) {
@@ -156,13 +164,15 @@ function HeroScreen() {
                 window.removeEventListener('scroll', debouncedScroll);
                 window.removeEventListener('wheel', killAutoScroll);
                 window.removeEventListener('touchstart', killAutoScroll);
-                scrollTimeout && clearTimeout(scrollTimeout);
+                window.removeEventListener('touchmove', killAutoScroll);
+                scrollTimeoutRef.current && clearTimeout(scrollTimeoutRef.current);
             };
         }, containerRef);
 
         return () => {
             ctx.revert();
             restartTimeoutRef.current && clearTimeout(restartTimeoutRef.current);
+            scrollTimeoutRef.current && clearTimeout(scrollTimeoutRef.current);
         };
     }, []);
 
@@ -180,16 +190,11 @@ function HeroScreen() {
                 const containerTop = container.offsetTop;
                 const containerBottom = containerTop + container.offsetHeight;
 
-                const isWithin = scrollY >= containerTop && scrollY <= containerBottom;
-
-                if (isWithin) {
-                    // ✅ Scroll to top of the section
+                if (scrollY >= containerTop && scrollY <= containerBottom) {
                     window.scrollTo({ top: containerTop, behavior: 'auto' });
 
-                    // ✅ Refresh ScrollTrigger & recalculate
                     ScrollTrigger.refresh();
 
-                    // ✅ Restart auto-scroll to bottom of section
                     const targetY = container.offsetTop + container.offsetHeight;
                     autoScrollTweenRef.current?.kill();
                     autoScrollTweenRef.current = gsap.to(window, {
