@@ -1,28 +1,35 @@
-import ExpressYourInterest from '@/components/ellerston/ExpressYourInterest';
-import HeroScreen from '@/components/ellerston/HeroScreen';
-import TopBar from '@/components/ellerston/TopBar';
-import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
-import '../assets/css/custom.css';
+// Welcome.tsx
 
-import ClassicExperience from '@/components/ellerston/ClassicExperience';
-import ImageGallery from '@/components/ellerston/ImageGallery';
-import SignatureExperience from '@/components/ellerston/SignatureExperience';
-import ThankYou from '@/components/ellerston/ThankYou';
 import gsap from 'gsap';
 import ScrollSmoother from 'gsap/ScrollSmoother';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+import ClassicExperience from '@/components/ellerston/ClassicExperience';
+import ExpressYourInterest from '@/components/ellerston/ExpressYourInterest';
+import HeroScreen from '@/components/ellerston/HeroScreen';
+import ImageGallery from '@/components/ellerston/ImageGallery';
+import SignatureExperience from '@/components/ellerston/SignatureExperience';
+import ThankYou from '@/components/ellerston/ThankYou';
+import TopBar from '@/components/ellerston/TopBar';
+
+import '../assets/css/custom.css';
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollSmoother);
 
 export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
     const wrapperRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
+    const expressRef = useRef<HTMLDivElement>(null);
+    const classicRef = useRef<HTMLDivElement>(null);
+    const signatureRef = useRef<HTMLDivElement>(null);
 
-    const expressRef = useRef<HTMLDivElement>(null); // add this at the top with your other refs
+    const [activeExperience, setActiveExperience] = useState<'classic' | 'signature' | null>(null);
+    const [showImageGallery, setShowImageGallery] = useState(false);
+    const [showThankYou, setShowThankYou] = useState(false);
 
+    // ScrollSmoother setup
     useEffect(() => {
         if (!wrapperRef.current || !contentRef.current) return;
 
@@ -31,6 +38,7 @@ export default function Welcome() {
             content: contentRef.current,
             smooth: 1.2,
             effects: true,
+            smoothTouch: 0.1, // for mobile support
         });
 
         return () => {
@@ -38,71 +46,65 @@ export default function Welcome() {
         };
     }, []);
 
-    const [showClassicExperience, setShowClassicExperience] = useState(false);
-    const [showSignatureExperience, setShowSignatureExperience] = useState(false);
-    const [showImageGallery, setshowImageGallery] = useState(false);
-    const [showThankYou, setShowThankYou] = useState(false);
-    const contactRef = useRef<HTMLDivElement>(null);
+    // Scroll to new experience component
+    useEffect(() => {
+        if (!activeExperience) return;
+        let targetEl: HTMLDivElement | null = null;
+
+        if (activeExperience === 'classic') targetEl = classicRef.current;
+        if (activeExperience === 'signature') targetEl = signatureRef.current;
+
+        if (targetEl) {
+            const timeout = setTimeout(() => {
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: targetEl.offsetTop,
+                    ease: 'power2.out',
+                    delay: 0.3,
+                });
+                //ScrollSmoother.get()?.scrollTo(targetEl, true, 'power2.out');
+                ScrollTrigger.refresh(); // Ensures triggers are recalculated
+            }, 100);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [activeExperience]);
+
+    // Pause smoother when overlay is active
+    useEffect(() => {
+        const smoother = ScrollSmoother.get();
+        if (showImageGallery || showThankYou) {
+            smoother?.paused(true);
+        } else {
+            smoother?.paused(false);
+        }
+    }, [showImageGallery, showThankYou]);
 
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
     const scrollToContent = (source: string) => {
         if (source === 'classic') {
-            setShowSignatureExperience(false);
-            setShowClassicExperience(true);
-            // Scroll after it appears
-            setTimeout(() => {
-                if (contactRef.current) {
-                    gsap.to(window, {
-                        duration: 1,
-                        scrollTo: contactRef.current.offsetTop,
-                        ease: 'power2.out',
-                        delay: 0.3,
-                    });
-                }
-            }, 100); // ensure DOM mount
-        }
-        if (source === 'signature') {
-            setShowClassicExperience(false);
-            setShowSignatureExperience(true);
-
-            // Scroll after it appears
-            setTimeout(() => {
-                if (contactRef.current) {
-                    gsap.to(window, {
-                        duration: 1,
-                        scrollTo: contactRef.current.offsetTop,
-                        ease: 'power2.out',
-                        delay: 0.3,
-                    });
-                }
-            }, 100); // ensure DOM mount
-        }
-        if (source === 'imagegallery') {
-            setshowImageGallery(true);
+            setActiveExperience('classic');
+        } else if (source === 'signature') {
+            setActiveExperience('signature');
+        } else if (source === 'imagegallery') {
+            setShowImageGallery(true);
         }
     };
-    const handleCloseThankYou = async () => {
-        // Step 1: Hide form
-        setShowClassicExperience(false);
-        setShowSignatureExperience(false);
 
-        // Step 2: Scroll to ExpressYourInterest section
+    const handleCloseThankYou = async () => {
+        setActiveExperience(null);
         await delay(300);
         if (expressRef.current) {
-            gsap.to(window, {
-                duration: 1,
-                scrollTo: '#experience_wrap',
-                ease: 'power2.out',
-            });
+            ScrollSmoother.get()?.scrollTo(expressRef.current, true, 'power2.out');
         }
-
-        // Step 3: Hide modal (trigger fade out inside modal first)
         await delay(2000);
         setShowThankYou(false);
     };
-    const handleClosegallery = async () => {
+
+    const handleCloseGallery = async () => {
         await delay(1000);
-        setshowImageGallery(false);
+        setShowImageGallery(false);
     };
 
     return (
@@ -111,20 +113,25 @@ export default function Welcome() {
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
                     <HeroScreen />
-                    <ExpressYourInterest onShowContact={scrollToContent} />
-                    {showClassicExperience && (
-                        <div ref={contactRef}>
+                    <div ref={expressRef}>
+                        <ExpressYourInterest onShowContact={scrollToContent} />
+                    </div>
+
+                    {activeExperience === 'classic' && (
+                        <div ref={classicRef}>
                             <ClassicExperience onShowContact={scrollToContent} onSuccess={() => setShowThankYou(true)} />
                         </div>
                     )}
-                    {showSignatureExperience && (
-                        <div ref={contactRef}>
+
+                    {activeExperience === 'signature' && (
+                        <div ref={signatureRef}>
                             <SignatureExperience onShowContact={scrollToContent} onSuccess={() => setShowThankYou(true)} />
                         </div>
                     )}
                 </div>
             </div>
-            {showImageGallery && <ImageGallery onClose={handleClosegallery} />}
+
+            {showImageGallery && <ImageGallery onClose={handleCloseGallery} />}
             {showThankYou && <ThankYou onClose={handleCloseThankYou} />}
         </>
     );
