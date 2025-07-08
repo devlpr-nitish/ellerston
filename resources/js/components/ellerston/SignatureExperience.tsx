@@ -45,51 +45,63 @@ const selectnight = [
 
 function SignatureExperience({ onSuccess }: Props) {
     useEffect(() => {
-        const tl = gsap.timeline();
-        tl.fromTo(
-            '.form_bg',
-            { opacity: 0, y: 100 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                delay: 0.1,
-            },
-        );
+        const timeout = setTimeout(() => {
+            const ctx = gsap.context(() => {
+                const tl = gsap.timeline();
+                tl.fromTo(
+                    '.form_bg',
+                    { opacity: 0, y: 100 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        delay: 0.1,
+                    },
+                );
 
-        tl.fromTo(
-            '.bg-black-light',
-            { y: '-105%' },
-            {
-                y: '0%',
-                duration: 0.8,
-                ease: 'power3.out',
-            },
-        );
+                tl.fromTo(
+                    '.bg-black-light',
+                    { y: '-105%' },
+                    {
+                        y: '0%',
+                        duration: 0.8,
+                        ease: 'power3.out',
+                    },
+                );
 
-        gsap.utils.toArray<HTMLElement>('.fade-effect').forEach((box) => {
-            tl.fromTo(
-                box,
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.2,
-                    ease: 'power3.out',
-                },
-            );
-        });
+                gsap.utils.toArray<HTMLElement>('.fade-effect').forEach((box) => {
+                    tl.fromTo(
+                        box,
+                        { opacity: 0, y: 50 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.2,
+                            ease: 'power3.out',
+                        },
+                    );
+                });
 
-        ScrollTrigger.create({
-            animation: tl,
-            trigger: '.form_wrap',
-            start: 'top+=10px 10%',
-            end: '+=5%',
-            toggleActions: 'play none none none',
-            invalidateOnRefresh: true,
-        });
+                ScrollTrigger.create({
+                    animation: tl,
+                    trigger: '.form_wrap',
+                    start: 'top+=100 center',
+                    end: '+=5%',
+                    toggleActions: 'play none none none',
+                    invalidateOnRefresh: true,
+                    markers: false,
+                });
 
-        ScrollTrigger.refresh();
+                //ScrollTrigger.refresh();
+            });
+            return () => {
+                ctx.revert();
+            };
+        }, 50);
+        return () => {
+            clearTimeout(timeout);
+            // ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        };
     }, []);
 
     const [formData, setFormData] = useState({

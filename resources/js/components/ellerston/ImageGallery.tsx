@@ -129,7 +129,7 @@ const ImageGallery = ({ onClose }: { onClose: () => void }) => {
                     <Slider key={sliderKey} ref={sliderRef} {...settings} className="h-full">
                         {slides.map((img, idx) => (
                             <div key={idx} className="flex! h-full items-center justify-center">
-                                <img src={img} alt={`Slide ${idx + 1}`} className="m-auto max-w-full object-contain" />
+                                <img src={img} alt={`Slide ${idx + 1}`} className="m-auto h-full max-w-full object-contain" />
                             </div>
                         ))}
                     </Slider>
