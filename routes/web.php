@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CsvUserController;
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -34,6 +35,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/upload-csv', function () {
+    return Inertia::render('UploadCsv');
+})->middleware(['auth', 'verified']);
+
+Route::post('/upload-csv', [CsvUserController::class, 'upload'])->middleware(['auth']);
+Route::get('/golf/{token}', [CsvUserController::class, 'show'])->middleware(['auth'])->name('golf.token');
+Route::get('/csv-users', [CsvUserController::class, 'index'])->middleware(['auth'])->name('csv.users');
 
 Route::post('/', [ContactController::class, 'store'])->name('express.store');
 

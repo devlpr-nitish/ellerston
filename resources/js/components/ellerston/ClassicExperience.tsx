@@ -77,16 +77,42 @@ function ClassicExperience({ onSuccess }: Props) {
                 });
 
                 ScrollTrigger.create({
-                    animation: tl,
                     trigger: '.form_wrap',
-                    start: 'top+=100 center',
-                    end: '+=5%',
-                    toggleActions: 'play none none none',
+                    // start: 'top+=100 center',
+                    start: 'top 10%',
+                    // end: '+=5%',
+                    end:"bottom top",
+                    animation: tl,
+                    toggleActions: 'restart none restart none',
                     invalidateOnRefresh: true,
                     markers: false,
+                    onEnter: () =>
+                        gsap.to('.form_wrap', {
+                            opacity: 1,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                        }),
+                    onLeave: () =>
+                        gsap.to('.form_wrap', {
+                            opacity: 0,
+                            duration: 0.4,
+                            ease: 'power2.in',
+                        }),
+                    onLeaveBack: () =>
+                        gsap.to('.form_wrap', {
+                            opacity: 0,
+                            duration: 0.4,
+                            ease: 'power2.in',
+                        }),
+                    onEnterBack: () =>
+                        gsap.to('.form_wrap', {
+                            opacity: 1,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                        }),
                 });
 
-                //ScrollTrigger.refresh();
+                ScrollTrigger.refresh();
             });
             return () => {
                 ctx.revert();

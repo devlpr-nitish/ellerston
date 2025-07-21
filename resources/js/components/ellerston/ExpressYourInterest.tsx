@@ -8,6 +8,7 @@ import { scrollToTarget } from './utils/scrollToTarget';
 
 gsap.registerPlugin(ScrollTrigger);
 function ExpressYourInterest({ onShowContact }) {
+
     useEffect(() => {
         const tl = gsap.timeline();
 
@@ -16,7 +17,7 @@ function ExpressYourInterest({ onShowContact }) {
             opacity: 1,
             y: 0,
             duration: 0.2,
-            ease: 'power2.out"',
+            ease: 'power2.out',
         };
 
         tl.fromTo(
@@ -35,16 +36,17 @@ function ExpressYourInterest({ onShowContact }) {
             tl.fromTo(box, fadeFrom, fadeTo);
         });
 
-        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2 h3 ');
+        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2 h3');
         boxes2.forEach((box2) => {
             tl.fromTo(box2, fadeFrom, fadeTo);
         });
 
-        const boxes3 = gsap.utils.toArray<HTMLElement>('.fade-box2 h5 ');
+        const boxes3 = gsap.utils.toArray<HTMLElement>('.fade-box2 h5');
         boxes3.forEach((box3) => {
             tl.fromTo(box3, fadeFrom, fadeTo);
         });
-        const boxes4 = gsap.utils.toArray<HTMLElement>('.fade-box2 > span ');
+
+        const boxes4 = gsap.utils.toArray<HTMLElement>('.fade-box2 > span');
         boxes4.forEach((box4) => {
             tl.fromTo(
                 box4,
@@ -52,28 +54,55 @@ function ExpressYourInterest({ onShowContact }) {
                 {
                     width: '100%',
                     duration: 0.2,
-                    ease: 'power2.out"',
+                    ease: 'power2.out',
                 },
             );
         });
+
         const boxes5 = gsap.utils.toArray<HTMLElement>('.fade-box2 > p');
         boxes5.forEach((box5) => {
             tl.fromTo(box5, fadeFrom, fadeTo);
         });
+
         const boxes6 = gsap.utils.toArray<HTMLElement>('.fade-box2 .linkdiv');
         boxes6.forEach((box6) => {
             tl.fromTo(box6, fadeFrom, fadeTo);
         });
+
         ScrollTrigger.create({
-            animation: tl,
             trigger: '.experience_wrap',
-            start: 'top+=10px 10%',
-            end: '+=5%',
-            //toggleActions: 'restart none reverse none',
-            toggleActions: 'play none none none',
+            start: 'top 20%',
+            toggleActions: 'restart none restart none',
+            animation: tl,
+            onEnter: () =>
+                gsap.to('.experience_wrap', {
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                }),
+            onLeave: () =>
+                gsap.to('.experience_wrap', {
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: 'power2.in',
+                }),
+            onLeaveBack: () =>
+                gsap.to('.experience_wrap', {
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: 'power2.in',
+                }),
+            onEnterBack: () =>
+                gsap.to('.experience_wrap', {
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                }),
             markers: false,
             invalidateOnRefresh: true,
         });
+
+
         ScrollTrigger.refresh();
     }, []);
 
