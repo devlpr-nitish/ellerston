@@ -36,6 +36,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+
+
+
+// added by Nitish
+
 Route::get('/upload-csv', function () {
     return Inertia::render('UploadCsv');
 })->middleware(['auth', 'verified']);
@@ -43,6 +48,9 @@ Route::get('/upload-csv', function () {
 Route::post('/upload-csv', [CsvUserController::class, 'upload'])->middleware(['auth']);
 Route::get('/golf/{token}', [CsvUserController::class, 'show'])->middleware(['auth'])->name('golf.token');
 Route::get('/csv-users', [CsvUserController::class, 'index'])->middleware(['auth'])->name('csv.users');
+
+
+// till here
 
 Route::post('/', [ContactController::class, 'store'])->name('express.store');
 
