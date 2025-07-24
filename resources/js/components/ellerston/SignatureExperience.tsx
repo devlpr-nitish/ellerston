@@ -83,16 +83,42 @@ function SignatureExperience({ onSuccess }: Props) {
                 });
 
                 ScrollTrigger.create({
+                    trigger: '.signature-content',
+                    // start: 'top+=100 center',
+                    start: 'top 10%',
+                    // end: '+=5%',
+                    end: "bottom top",
                     animation: tl,
-                    trigger: '.form_wrap',
-                    start: 'top+=100 center',
-                    end: '+=5%',
-                    toggleActions: 'play none none none',
+                    toggleActions: 'restart none restart none',
                     invalidateOnRefresh: true,
                     markers: false,
+                    onEnter: () =>
+                        gsap.to('.signature-content', {
+                            opacity: 1,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                        }),
+                    onLeave: () =>
+                        gsap.to('.signature-content', {
+                            opacity: 0,
+                            duration: 0.4,
+                            ease: 'power2.in',
+                        }),
+                    onLeaveBack: () =>
+                        gsap.to('.signature-content', {
+                            opacity: 0,
+                            duration: 0.4,
+                            ease: 'power2.in',
+                        }),
+                    onEnterBack: () =>
+                        gsap.to('.signature-content', {
+                            opacity: 1,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                        }),
                 });
 
-                //ScrollTrigger.refresh();
+                ScrollTrigger.refresh();
             });
             return () => {
                 ctx.revert();
@@ -143,7 +169,7 @@ function SignatureExperience({ onSuccess }: Props) {
 
     return (
         <section id="classic_experience" className="form_wrap section w-full items-center bg-black">
-            <div className="relative px-[32px] py-[144px]">
+            <div className="signature-content relative px-[32px] py-[144px]">
                 <div className="form_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
                 <div className="form_container relative z-10 mx-auto max-w-[856px] px-[24px] py-[64px] sm:px-[30px] sm:py-[70px] md:px-[50px] md:py-[80px] lg:px-[90px] lg:py-[100px] xl:px-[110px] xl:py-[120px]">
