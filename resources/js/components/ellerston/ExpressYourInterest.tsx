@@ -2,17 +2,22 @@ import { Link } from '@inertiajs/react';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
 import { scrollToTarget } from './utils/scrollToTarget';
 
+
 gsap.registerPlugin(ScrollTrigger);
 function ExpressYourInterest({ onShowContact }) {
+    const skipAnimationRef = useRef(false);
 
     useEffect(() => {
         const tl = gsap.timeline();
 
-        const fadeFrom = { opacity: 0, y: 50 };
+        const fadeFrom = { 
+            opacity: 0, 
+            y: 50 
+        };
         const fadeTo = {
             opacity: 1,
             y: 0,
@@ -20,16 +25,19 @@ function ExpressYourInterest({ onShowContact }) {
             ease: 'power2.out',
         };
 
-        tl.fromTo(
-            '.express_bg',
-            { opacity: 0, y: 100 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                delay: 0.1,
-            },
-        );
+        // tl.fromTo(
+        //     '.express_bg',
+        //     { 
+        //         opacity: 0, 
+        //         y: 100 
+        //     },
+        //     {
+        //         opacity: 1,
+        //         y: 0,
+        //         duration: 0.5,
+        //         delay: 0.1,
+        //     },
+        // );
 
         const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
         boxes.forEach((box) => {
@@ -72,32 +80,44 @@ function ExpressYourInterest({ onShowContact }) {
         ScrollTrigger.create({
             trigger: '.experience_wrap',
             start: 'top 20%',
-            toggleActions: 'restart none restart none',
-            animation: tl,
-            onEnter: () =>
+            end:'bottom 10%',
+            toggleActions: 'none none none none',
+            // animation: tl,
+            onEnter: () =>{
+                if (!skipAnimationRef.current) {
+                    tl.restart(); 
+                }
                 gsap.to('.experience_wrap', {
                     opacity: 1,
                     duration: 0.4,
                     ease: 'power2.out',
-                }),
-            onLeave: () =>
+                })
+                
+            },
+            onLeave: () =>{
                 gsap.to('.experience_wrap', {
                     opacity: 0,
                     duration: 0.4,
                     ease: 'power2.in',
-                }),
-            onLeaveBack: () =>
+                })
+            },
+            onLeaveBack: () =>{
                 gsap.to('.experience_wrap', {
                     opacity: 0,
                     duration: 0.4,
                     ease: 'power2.in',
-                }),
-            onEnterBack: () =>
+                })
+            },
+            onEnterBack: () =>{
+                if (!skipAnimationRef.current) {
+                    tl.restart();
+                }
                 gsap.to('.experience_wrap', {
                     opacity: 1,
                     duration: 0.4,
                     ease: 'power2.out',
-                }),
+                })
+            },
             markers: false,
             invalidateOnRefresh: true,
         });
@@ -108,7 +128,7 @@ function ExpressYourInterest({ onShowContact }) {
 
     return (
         <section id="experience_wrap" className="section w-full items-center bg-black">
-            <div className="experience_wrap relative min-h-screen">
+            <div className="experience_wrap relative min-h-screen bg-dark">
                 <div className="express_bg absolute top-0 left-0 z-0 h-full w-full"></div>
                 <div className="relative z-10 mx-auto flex h-full max-w-[1130px] flex-col items-center justify-center py-[120px]">
                     <div className="in_head mx-auto flex flex-col items-center px-[20px]">
@@ -132,8 +152,15 @@ function ExpressYourInterest({ onShowContact }) {
                                 <Link
                                     onClick={(e) => {
                                         e.preventDefault();
+
+                                        skipAnimationRef.current = true;
                                         scrollToTarget('#classic_experience');
                                         onShowContact('classic');
+
+                                        setTimeout(() => {
+                                            skipAnimationRef.current = false;
+                                        }, 1000);
+
                                     }}
                                     className={button_style + ' btn_arrow scroll-link'}
                                     href="#classic_experience"
@@ -162,8 +189,15 @@ function ExpressYourInterest({ onShowContact }) {
                                 <Link
                                     onClick={(e) => {
                                         e.preventDefault();
+
+                                        skipAnimationRef.current = true;
+                                        
                                         scrollToTarget('#classic_experience');
                                         onShowContact('signature');
+
+                                        setTimeout(() => {
+                                            skipAnimationRef.current = false;
+                                        }, 1000);
                                     }}
                                     className={button_style + ' btn_arrow scroll-link'}
                                     href="#classic_experience"
