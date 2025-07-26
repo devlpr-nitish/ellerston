@@ -109,7 +109,7 @@ export default function Welcome() {
 
     return (
         <>
-            <TopBar onShowContact={scrollToContent} />
+            <TopBar onShowContact={scrollToContent} private_top={false} />
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
                     <HeroScreen />

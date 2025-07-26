@@ -41,13 +41,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // added by Nitish
 
+Route::get('/invited/ruk3pp1-rgb144a', function () {
+    return Inertia::render('InviteUser');
+});
+
+
 Route::get('/upload-csv', function () {
     return Inertia::render('UploadCsv');
 })->middleware(['auth', 'verified']);
 
 Route::post('/upload-csv', [CsvUserController::class, 'upload'])->middleware(['auth']);
-Route::get('/golf/{token}', [CsvUserController::class, 'show'])->middleware(['auth'])->name('golf.token');
+// Route::get('/golf/{token}', [CsvUserController::class, 'show'])->middleware(['auth'])->name('golf.token');
 Route::get('/csv-users', [CsvUserController::class, 'index'])->middleware(['auth'])->name('csv.users');
+
 
 
 // till here

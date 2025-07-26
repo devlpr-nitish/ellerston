@@ -11,7 +11,7 @@ import { scrollToTarget } from './utils/scrollToTarget';
 
 gsap.registerPlugin(ScrollToPlugin, ScrollSmoother);
 
-function TopBar({ onShowContact }) {
+function TopBar({ onShowContact, private_top }: {onShowContact: any, private_top: boolean}) {
     const menuRef = useRef(null);
     const menuItemsRef = useRef([]);
     const [isOpen, setIsOpen] = useState(false);
@@ -174,6 +174,10 @@ function TopBar({ onShowContact }) {
                                 )}
                             </Link>
                         </li>
+                        {
+                        
+                        !private_top ? 
+                        
                         <li>
                             <Link href="/" className="flex items-center gap-1.5">
                                 <span>EN</span>
@@ -185,6 +189,15 @@ function TopBar({ onShowContact }) {
                                 </svg>
                             </Link>
                         </li>
+                        :
+                        
+                        <li>
+                            <Link href="/" className="flex items-center gap-1.5">
+                                <span>BOOK YOUR VISIT</span>
+                            </Link>
+                        </li>
+                        
+                        }
                     </ul>
                 </div>
             </div>

@@ -36,19 +36,19 @@ class CsvUserController extends Controller
         }
     }
 
-    public function show($token)
-    {
-        $user = CsvUser::where('token', $token)->first();
+    // public function show($token)
+    // {
+    //     $user = CsvUser::where('token', $token)->first();
 
-        if (!$user) {
-            return Inertia::render('ShowUserWithToken', [
-                'error' => 'User with this token was not found.',
-                'user' => null,
-            ]);
-        }
+    //     if (!$user) {
+    //         return Inertia::render('ShowUserWithToken', [
+    //             'error' => 'User with this token was not found.',
+    //             'user' => null,
+    //         ]);
+    //     }
 
-        return Inertia::render('ShowUserWithToken', [
-            'user' => $user,
-        ]);
-    }
+    //     return Inertia::render('ShowUserWithToken', [
+    //         'user' => $user,
+    //     ]);
+    // }
 }
