@@ -173,6 +173,7 @@ function SignatureExperience({ onSuccess }: Props) {
                 <div className="form_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
                 <div className="form_container relative z-10 mx-auto max-w-[856px] px-[24px] py-[64px] sm:px-[30px] sm:py-[70px] md:px-[50px] md:py-[80px] lg:px-[90px] lg:py-[100px] xl:px-[110px] xl:py-[120px]">
+                    
                     <span className="bg-black-light"></span>
                     <div className="px-[16px]">
                         <h1 className={h1_class + mb24 + ' fade-effect'}>Signature EXPERIENCE</h1>
