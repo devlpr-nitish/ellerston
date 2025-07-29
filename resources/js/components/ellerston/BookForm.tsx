@@ -135,9 +135,9 @@ function BookForm({ onSuccess }: Props) {
                 <div className="form_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
                 <div className="from_container relative z-10 mx-auto max-w-[856px] px-[110px] py-[120px]">
-                    {/* <span className="bg-black-light "></span> */}
+                    <span className="bg-black-light"></span>
 
-                    <span className="bg-black-light absolute inset-0 z-[-1]"></span>
+                    {/* <span className="bg-black-light absolute inset-0 z-[-1]"></span> */}
 
                     <div className="px-[16px]">
                         <h1 className={h1_class + ' fade-effect mb-[24px] text-center'}>ELLERSTON GOLF</h1>
