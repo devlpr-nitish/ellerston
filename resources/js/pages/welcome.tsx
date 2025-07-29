@@ -15,6 +15,7 @@ import ThankYou from '@/components/ellerston/ThankYou';
 import TopBar from '@/components/ellerston/TopBar';
 
 import '../assets/css/custom.css';
+import { Head } from '@inertiajs/react';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollSmoother);
 
@@ -109,6 +110,7 @@ export default function Welcome() {
 
     return (
         <>
+            <Head title="Home" />
             <TopBar onShowContact={scrollToContent} private_top={false} />
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
@@ -136,3 +138,4 @@ export default function Welcome() {
         </>
     );
 }
+

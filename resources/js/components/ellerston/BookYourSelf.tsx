@@ -23,7 +23,7 @@ function BookYourSelf({ onShowContact }) {
         const fadeTo = {
             opacity: 1,
             y: 0,
-            duration: 0.4,
+            duration: 0.2,
             ease: 'power2.out',
         };
 
@@ -83,10 +83,10 @@ function BookYourSelf({ onShowContact }) {
 
         ScrollTrigger.create({
             trigger: '.experience_wrap',
-            start: 'top 10%',
-            end: '+=1090',
-            toggleActions: 'restart none restart none',
-            animation: tl,
+            start: 'top 20%',
+            end: 'bottom 10%',
+            toggleActions: 'none none none none',
+            // animation: tl,
             onEnter: () => {
                 if (!skipAnimationRef.current) {
                     tl.restart();
@@ -100,14 +100,14 @@ function BookYourSelf({ onShowContact }) {
             },
             onLeave: () => {
                 gsap.to('.experience_wrap', {
-                    // opacity: 0,
+                    opacity: 0,
                     duration: 0.4,
                     ease: 'power2.in',
                 })
             },
             onLeaveBack: () => {
                 gsap.to('.experience_wrap', {
-                    // opacity: 0,
+                    opacity: 0,
                     duration: 0.4,
                     ease: 'power2.in',
                 })
@@ -133,7 +133,7 @@ function BookYourSelf({ onShowContact }) {
 
     return (
         <section id="experience_wrap" className="section w-full items-center bg-black">
-            <div className="experience_wrap relative min-h-screen bg-dark">
+            <div className="experience_wrap relative min-h-screen bg-dark opacity-0">
                 <div className="express_bg absolute top-0 left-0 z-0 h-full w-full"></div>
                 <div className="relative z-10 mx-auto flex h-full max-w-[1130px] flex-col items-center justify-center py-[120px]">
                     <div className="in_head mx-auto flex flex-col items-center px-[20px]">

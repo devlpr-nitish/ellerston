@@ -128,7 +128,7 @@ function ExpressYourInterest({ onShowContact }) {
 
     return (
         <section id="experience_wrap" className="section w-full items-center bg-black">
-            <div className="experience_wrap relative min-h-screen bg-dark">
+            <div className="experience_wrap relative min-h-screen bg-dark opacity-0">
                 <div className="express_bg absolute top-0 left-0 z-0 h-full w-full"></div>
                 <div className="relative z-10 mx-auto flex h-full max-w-[1130px] flex-col items-center justify-center py-[120px]">
                     <div className="in_head mx-auto flex flex-col items-center px-[20px]">

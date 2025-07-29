@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { motion as m } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -9,6 +9,7 @@ import TopBar from '@/components/ellerston/TopBar';
 import VideoPage from '@/components/ellerston/VideoPage';
 import BookYourSelf from '@/components/ellerston/BookYourSelf';
 import BookForm from '@/components/ellerston/BookForm';
+import { ScrollSmoother } from 'gsap/all';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -30,9 +31,54 @@ function HeroScreen() {
   const restartTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [activeExperience, setActiveExperience] = useState<'booking_form' | null>(null);
+  const [activeExperience, setActiveExperience] = useState<'booking_form' | 'book_yourself' | null>(null);
   const [showThankYou, setShowThankYou] = useState(false);
   const bookRef = useRef<HTMLDivElement>(null);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const bookYourRef = useRef<HTMLDivElement>(null);
+  
+
+  useEffect(() => {
+    if (!wrapperRef.current || !contentRef.current) return;
+
+    const smoother = ScrollSmoother.create({
+      wrapper: wrapperRef.current,
+      content: contentRef.current,
+      smooth: 1.2,
+      effects: true,
+      smoothTouch: 0.1,
+    });
+
+    return () => {
+      smoother.kill();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!activeExperience) return;
+    let targetEl: HTMLDivElement | null = null;
+
+    // if (activeExperience === 'booking_form') targetEl = classicRef.current;
+    if (activeExperience === 'book_yourself') targetEl = bookYourRef.current;
+
+    if (targetEl) {
+      const timeout = setTimeout(() => {
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: targetEl.offsetTop,
+          ease: 'power2.out',
+          delay: 0.3,
+        });
+        //ScrollSmoother.get()?.scrollTo(targetEl, true, 'power2.out');
+        ScrollTrigger.refresh(); // Ensures triggers are recalculated
+      }, 100);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [activeExperience]);
+
 
 
   const startAutoScroll = () => {
@@ -51,26 +97,26 @@ function HeroScreen() {
   };
 
   useEffect(() => {
-        if (!activeExperience) return;
-        let targetEl: HTMLDivElement | null = null;
+    if (!activeExperience) return;
+    let targetEl: HTMLDivElement | null = null;
 
-        if (activeExperience === 'booking_form') targetEl = bookRef.current;
+    if (activeExperience === 'booking_form') targetEl = bookRef.current;
 
-        if (targetEl) {
-            const timeout = setTimeout(() => {
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: targetEl.offsetTop,
-                    ease: 'power2.out',
-                    delay: 0.3,
-                });
-                //ScrollSmoother.get()?.scrollTo(targetEl, true, 'power2.out');
-                ScrollTrigger.refresh(); // Ensures triggers are recalculated
-            }, 100);
+    if (targetEl) {
+      const timeout = setTimeout(() => {
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: targetEl.offsetTop,
+          ease: 'power2.out',
+          delay: 0.3,
+        });
+        //ScrollSmoother.get()?.scrollTo(targetEl, true, 'power2.out');
+        ScrollTrigger.refresh(); // Ensures triggers are recalculated
+      }, 100);
 
-            return () => clearTimeout(timeout);
-        }
-    }, [activeExperience]);
+      return () => clearTimeout(timeout);
+    }
+  }, [activeExperience]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -254,73 +300,82 @@ function HeroScreen() {
 
   return (
     <>
+      <Head title="Invited" />
+
       <TopBar onShowContact={scrollToContent} private_top={true} />
 
-      <section className="section relative min-h-screen w-full overflow-hidden bg-black">
-        <div ref={containerRef} className="relative flex h-screen flex-col items-end justify-end">
-          <div className="homescreen absolute top-0 left-0 z-0 h-screen w-full"></div>
-          <div className="relative mb-[16px] h-[100px] w-full">
-            {texts.map((text, i) => (
-              <div
-                key={i}
-                ref={(el) => {
-                  if (el) slidesRef.current[i] = el;
-                }}
-                className="absolute right-[40px] bottom-0 left-[40px] text-center text-[28px] leading-[32px] tracking-[2%] opacity-0"
-              >
-                {text}
+      <div ref={wrapperRef}>
+        <div ref={contentRef}>
+
+          <section className="section relative min-h-screen w-full overflow-hidden bg-black">
+            <div ref={containerRef} className="relative flex h-screen flex-col items-end justify-end">
+              <div className="homescreen absolute top-0 left-0 z-0 h-screen w-full"></div>
+              <div className="relative mb-[16px] h-[100px] w-full">
+                {texts.map((text, i) => (
+                  <div
+                    key={i}
+                    ref={(el) => {
+                      if (el) slidesRef.current[i] = el;
+                    }}
+                    className="absolute right-[40px] bottom-0 left-[40px] text-center text-[28px] leading-[32px] tracking-[2%] opacity-0"
+                  >
+                    {text}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">
-            <Link
-              href="#video_wrap"
-              className="scroll-link"
-              onClick={(e) => {
-                e.preventDefault();
-                const targetEl = document.querySelector('#video_wrap');
-                if (targetEl) {
-                  scrollToTarget('#video_wrap');
-                }
-              }}
-            >
-              KEEP SCROLLING
-            </Link>
-          </div>
-          <div className="scroll-down overflow-hidden">
-            <m.span
-              className="mx-auto block h-[33px] w-[2px] bg-white"
-              initial={{ opacity: 0, y: 0 }}
-              animate={{ opacity: [0, 1, 0], y: 60 }}
-              transition={{
-                delay: 3,
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: 'loop',
-                repeatDelay: 1,
-                ease: 'easeInOut',
-              }}
-            />
-          </div>
+              <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">
+                <Link
+                  href="#video_wrap"
+                  className="scroll-link"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const targetEl = document.querySelector('#video_wrap');
+                    if (targetEl) {
+                      scrollToTarget('#video_wrap');
+                    }
+                  }}
+                >
+                  KEEP SCROLLING
+                </Link>
+              </div>
+              <div className="scroll-down overflow-hidden">
+                <m.span
+                  className="mx-auto block h-[33px] w-[2px] bg-white"
+                  initial={{ opacity: 0, y: 0 }}
+                  animate={{ opacity: [0, 1, 0], y: 60 }}
+                  transition={{
+                    delay: 3,
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatType: 'loop',
+                    repeatDelay: 1,
+                    ease: 'easeInOut',
+                  }}
+                />
+              </div>
+
+            </div>
+
+            <div className="">
+              <VideoPage />
+            </div>
+
+            <div ref={bookYourRef}>
+              <BookYourSelf onShowContact={scrollToContent} />
+            </div>
+
+            {activeExperience === 'booking_form' && (
+              <div
+                ref={bookRef}
+              >
+                <BookForm onSuccess={() => setShowThankYou(true)} />
+              </div>
+            )}
+          </section>
+
 
         </div>
-
-        <div className="">
-          <VideoPage />
-        </div>
-
-        <div className="">
-          <BookYourSelf onShowContact={scrollToContent} />
-        </div>
-
-        {activeExperience === 'booking_form' && (
-          <div 
-          ref={bookRef}
-          >
-            <BookForm onSuccess={() => setShowThankYou(true)} />
-          </div>
-        )}
-      </section>
+      </div>
     </>
   );
 }
