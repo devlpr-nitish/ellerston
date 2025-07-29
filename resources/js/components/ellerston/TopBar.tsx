@@ -193,11 +193,14 @@ function TopBar({ onShowContact, private_top }: { onShowContact: any, private_to
 
                                 <li className=''>
                                     <Link
-                                        href=''
+                                        href='#bookform_wrap'
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            onShowContact('book_yourself');
-                                        }} 
+                                            const targetEl = document.querySelector('#bookform_wrap');
+                                            if (targetEl) {
+                                                scrollToTarget('#bookform_wrap');
+                                            }
+                                        }}
                                         className="flex items-center gap-1.5">
                                         <span>BOOK YOUR VISIT</span>
                                     </Link>
