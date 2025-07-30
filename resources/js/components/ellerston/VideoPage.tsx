@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Ellerston from '../../assets/video/Ellerston.mp4';
+import Ellerston from '../../assets/video/Ellerston.mov';
 import EllerstonPoster from '../../assets/img/video_cover.png';
 
 import { gsap } from 'gsap';
