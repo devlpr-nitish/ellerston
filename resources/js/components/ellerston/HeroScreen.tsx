@@ -4,9 +4,7 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
-
 import { scrollToTarget } from './utils/scrollToTarget';
-
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 

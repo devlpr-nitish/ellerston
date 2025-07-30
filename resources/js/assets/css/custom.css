@@ -150,6 +150,7 @@ option {
     transform: translateY(-105%);
 }
 
+
 .bg-black-light {
     content: "";
     display: block;
@@ -169,6 +170,7 @@ option {
     transition: all 0.3s linear 0s;
     padding-left: 0;
 }
+
 
 .btn_arrow span svg {
     fill: white;

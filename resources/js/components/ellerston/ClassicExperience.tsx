@@ -75,42 +75,50 @@ function ClassicExperience({ onSuccess }: Props) {
                         },
                     );
                 });
-
                 ScrollTrigger.create({
-                    trigger: '.form_content',
-                    // start: 'top+=100 center',
-                    start: 'top 10%',
-                    // end: '+=5%',
-                    end: "bottom top",
+                                    trigger: '.classic-content',
+                                    // start: 'top+=100 center',
+                                    start: 'top 10%',
+                                    // end: '+=5%',
+                                    end:"bottom top",
+                                    animation: tl,
+                                    toggleActions: 'restart none restart none',
+                                    invalidateOnRefresh: true,
+                                    markers: false,
+                                    onEnter: () =>
+                                        gsap.to('.classic-content', {
+                                            opacity: 1,
+                                            duration: 0.4,
+                                            ease: 'power2.out',
+                                        }),
+                                    onLeave: () =>
+                                        gsap.to('.classic-content', {
+                                            opacity: 0,
+                                            duration: 0.4,
+                                            ease: 'power2.in',
+                                        }),
+                                    onLeaveBack: () =>
+                                        gsap.to('.classic-content', {
+                                            opacity: 0,
+                                            duration: 0.4,
+                                            ease: 'power2.in',
+                                        }),
+                                    onEnterBack: () =>
+                                        gsap.to('.classic-content', {
+                                            opacity: 1,
+                                            duration: 0.4,
+                                            ease: 'power2.out',
+                                        }),
+                                });
+                /*ScrollTrigger.create({
                     animation: tl,
-                    toggleActions: 'restart none restart none',
+                    trigger: '.form_wrap',
+                    start: 'top+=100 center',
+                    end: '+=5%',
+                    toggleActions: 'restart none reverse none',
                     invalidateOnRefresh: true,
                     markers: false,
-                    onEnter: () =>
-                        gsap.to('.form_content', {
-                            opacity: 1,
-                            duration: 0.4,
-                            ease: 'power2.out',
-                        }),
-                    onLeave: () =>
-                        gsap.to('.form_content', {
-                            opacity: 0,
-                            duration: 0.4,
-                            ease: 'power2.in',
-                        }),
-                    onLeaveBack: () =>
-                        gsap.to('.form_content', {
-                            opacity: 0,
-                            duration: 0.4,
-                            ease: 'power2.in',
-                        }),
-                    onEnterBack: () =>
-                        gsap.to('.form_content', {
-                            opacity: 1,
-                            duration: 0.4,
-                            ease: 'power2.out',
-                        }),
-                });
+                });*/
 
                 ScrollTrigger.refresh();
             });
@@ -163,8 +171,8 @@ function ClassicExperience({ onSuccess }: Props) {
 
     return (
         <section id="classic_experience" className="form_wrap section w-full items-center bg-black">
-            <div className="form_content relative px-[32px] py-[144px]">
-                <div className="form_bg absolute top-0 left-0 z-0 h-full w-full "></div>
+            <div className="classic-content relative px-[32px] py-[144px]">
+                <div className="form_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
                 <div className="form_container relative z-10 mx-auto max-w-[856px] px-[24px] py-[64px] sm:px-[30px] sm:py-[70px] md:px-[50px] md:py-[80px] lg:px-[90px] lg:py-[100px] xl:px-[110px] xl:py-[120px]">
                     <span className="bg-black-light"></span>
@@ -177,7 +185,7 @@ function ClassicExperience({ onSuccess }: Props) {
                             The CLASSIC experience starts at $25,000 AUD per guest (Minimum of 4 guests per group)
                         </p>
                     </div>
-                    {/* <hr className="fade-effect my-[48px] h-[1px] bg-white" /> */}
+                    <hr className="fade-effect my-[48px] h-[1px] bg-white" />
 
                     <form onSubmit={handleSubmit} className="fromstyle">
                         <div className={mb24 + gap24 + ' fade-effect flex flex-wrap md:flex-nowrap'}>
