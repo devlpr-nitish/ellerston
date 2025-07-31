@@ -55,7 +55,7 @@ function NewHeroScreen() {
         <section className="section relative min-h-screen w-full overflow-hidden bg-black">
             <div ref={containerRef} className="relative flex h-screen flex-col items-center justify-center">
                 <div className="text-center">
-                    <span className='text-7xl tracking-widest'>ELLERSTON</span>
+                    <span className='text-5xl md:text-7xl tracking-widest'>ELLERSTON</span>
                 </div>
             </div>
         </section>
