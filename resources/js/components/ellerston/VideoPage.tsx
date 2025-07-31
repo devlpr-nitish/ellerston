@@ -125,12 +125,10 @@ const VideoPage: React.FC = () => {
                     >
                         <svg
                             className={`
-                                rounded-full text-xl md:text-2xl cursor-pointer font-semibold transition-all duration-700
+                                h-[110px] w-[110px]  md:h-[160px] md:w-[160px]  rounded-full text-xl md:text-2xl cursor-pointer font-semibold transition-all duration-700
                                 ${showOverlay ? 'opacity-100' : 'opacity-0'}
                             `}
                             fill="#ffffff"
-                            height="160px"
-                            width="160px"
                             viewBox="0 0 60 60"
                             xmlns="http://www.w3.org/2000/svg"
                         >

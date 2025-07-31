@@ -184,7 +184,7 @@ function BookYourSelf({ onShowContact }) {
                     <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">
                         <Link
                             href="#video_wrap"
-                            className="scroll-link text-xl"
+                            className="scroll-link text-md md:text-xl"
                             onClick={(e) => {
                                 e.preventDefault();
                                 scrollToTarget('#video_wrap');
