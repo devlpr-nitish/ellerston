@@ -6,11 +6,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
 import { scrollToTarget } from './utils/scrollToTarget';
+import { motion as m } from 'framer-motion';
+
 
 
 gsap.registerPlugin(ScrollTrigger);
 function BookYourSelf({ onShowContact }) {
-    
+
     const skipAnimationRef = useRef(false);
 
     useEffect(() => {
@@ -132,51 +134,36 @@ function BookYourSelf({ onShowContact }) {
 
 
     return (
-        <section id="bookform_wrap" className="section w-full items-center bg-black">
-            <div className="experience_wrap relative min-h-screen bg-dark opacity-0">
-                <div className="express_bg absolute top-0 left-0 z-0 h-full w-full"></div>
-                <div className="relative z-10 mx-auto flex h-full max-w-[1130px] flex-col items-center justify-center py-[120px]">
+        <section id="bookform_wrap" className="w-full bg-black">
+            <div className="experience_wrap relative min-h-screen bg-dark opacity-0 flex flex-col justify-center px-4 sm:px-6">
+                <div className="invited_bg absolute top-0 left-0 z-0 h-full w-full"></div>
+
+                <div className="relative z-10 mx-auto flex h-full w-full max-w-[1130px] flex-col items-center justify-center mt-20 mb-5 py-20 px-6 sm:px-10 md:px-16 lg:px-[150px] bg-gray-300/15">
                     <div className="in_head mx-auto flex flex-col items-center px-[20px]">
-                        <h1 className={'fade-box mb-[24px] max-w-[280px] sm:max-w-[320px] md:max-w-[370px] lg:max-w-[386px] ' + h1_class}>
-                            ELLERSTON GOLF ALL TO YOURSELF.
+                        <h1 className={`fade-box mb-6 text-center max-w-full sm:max-w-[320px] md:max-w-[370px] lg:max-w-[386px] ${h1_class}`}>
+                            WELCOME TO ELLERSTON GOLF
                         </h1>
-                        {/* <span className="fade-box bg-colo inline-block rounded-[4px] bg-[#0000001f] px-[16px] py-[8px] text-center text-[16px] leading-[24px] tracking-[8%] uppercase md:leading-[32px]">
-                            Limited opportunities remaining for 2025
-                        </span> */}
                     </div>
 
-                    <div className="fade-box2 mt-8 max-w-3xl px-4 text-left text-[16px] uppercase text-white space-y-6">
-                        <p>
-                            Twenty-five years after the course was first carved into the land, we’re thrilled to introduce a new offering for Ellerston Golf.
-                        </p>
-                        <p>
-                            As someone with a special connection to the (Ellerston) family, we’re delighted to offer you priority access to this unique experience.
-                        </p>
-                        <p>
-                            With few opportunities to play the course each year, we welcome golfing enthusiasts who value the deep sense of connection and rejuvenation that Ellerston provides.
-                        </p>
-                        <p>
-                            If you would like to experience Ellerston Golf, we invite you to submit your details, and our team will be in touch to share more about our offerings and pricing for your visit.
-                        </p>
-                        <p>
-                            It would be our pleasure to welcome you to Ellerston.
-                        </p>
-
+                    <div className="fade-box2 mt-8 w-full max-w-3xl px-4 text-center text-[14px] sm:text-[16px] uppercase text-white space-y-6">
+                        <p>Twenty-five years after the course was first carved into the land, we’re thrilled to introduce a new offering for Ellerston Golf.</p>
+                        <p>The team is looking forward to welcoming golfers who value the natural beauty and particular challenge that this course offers, with unique day experiences and tailored overnight stays available.</p>
+                        <p>With limited opportunities to play the course each year, we are delighted to offer you priority access.</p>
+                        <p>To experience Ellerston Golf, please submit your information and we will be in touch about this exclusive opportunity.</p>
+                        <p>We look forward to welcoming you to Ellerston.</p>
 
                         <div className="linkdiv mt-10 flex justify-center">
                             <Link
                                 onClick={(e) => {
                                     e.preventDefault();
-
                                     skipAnimationRef.current = true;
                                     scrollToTarget('#book_form');
                                     onShowContact('booking_form');
-
                                     setTimeout(() => {
                                         skipAnimationRef.current = false;
                                     }, 1000);
                                 }}
-                                className={button_style + ' btn_arrow scroll-link'}
+                                className={`${button_style} btn_arrow scroll-link`}
                                 href="#book_form"
                             >
                                 <span className="inline-flex items-center gap-2">
@@ -186,13 +173,39 @@ function BookYourSelf({ onShowContact }) {
                                             fill="currentColor"
                                         />
                                     </svg>
-                                    Book your visit
+                                    Contact us
                                 </span>
                             </Link>
                         </div>
-
-
                     </div>
+                </div>
+
+                <div className="scroll-down overflow-hidden min-w-[120px] sm:min-w-[160px]">
+                    <div className="keep_scrooling z-10 w-full p-[10px] text-center text-[14px] leading-[24px] tracking-[12%]">
+                        <Link
+                            href="#video_wrap"
+                            className="scroll-link text-xl"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollToTarget('#video_wrap');
+                            }}
+                        >
+                            SCROLL DOWN
+                        </Link>
+                    </div>
+                    <m.span
+                        className="mx-auto block h-[33px] w-[2px] bg-white"
+                        initial={{ opacity: 0, y: 0 }}
+                        animate={{ opacity: [0, 1, 0], y: 60 }}
+                        transition={{
+                            delay: 3,
+                            duration: 1.5,
+                            repeat: Infinity,
+                            repeatType: 'loop',
+                            repeatDelay: 1,
+                            ease: 'easeInOut',
+                        }}
+                    />
                 </div>
             </div>
         </section>

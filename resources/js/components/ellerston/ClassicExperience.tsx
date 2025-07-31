@@ -604,14 +604,14 @@ function ClassicExperience({ onSuccess }: Props) {
 
                         <div className={mb24 + ' fade-effect'}>
                             <label htmlFor="current_memberships" className={label_full}>
-                                CURRENT MEMBERSHIPS
+                                CURRENT GOLF CLUB MEMBERSHIPS
                             </label>
                             <input
                                 type="text"
                                 name="current_memberships"
                                 value={formData.current_memberships}
                                 onChange={handleChange}
-                                placeholder="ENTER NOTABLE GOLF CLUBS"
+                                placeholder="ENTER UP TO THREE MEMBERSHIPS"
                                 className={feild_class}
                             />
                         </div>
@@ -620,7 +620,7 @@ function ClassicExperience({ onSuccess }: Props) {
                             <label className="custom_checkbox">
                                 <input type="checkbox" name="acceptPolicy" checked={formData.acceptPolicy} onChange={handleChange} />
                                 <span className="checkbox"></span>
-                                <span>
+                                <span className='tracking-wider'>
                                     By submitting this form, you agree to our Privacy Policy. <Link href="">Read Privacy Policy here</Link>
                                 </span>
                             </label>

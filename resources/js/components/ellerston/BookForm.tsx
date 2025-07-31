@@ -59,10 +59,10 @@ function BookForm({ onSuccess }: Props) {
 
                 tl.fromTo(
                     '.bg-black-light',
-                    { y: '-105%', opacity:0 },
+                    { y: '-105%', opacity: 0 },
                     {
                         y: '0%',
-                        opacity:1,
+                        opacity: 1,
                         duration: 0.8,
                         ease: 'power3.out',
                     },
@@ -193,7 +193,7 @@ function BookForm({ onSuccess }: Props) {
                             />
                         </div>
 
-                        <div className={`${mb24} ${gap24} fade-effect relative z-30 flex`}>
+                        <div className={`${mb24} ${gap24} fade-effect relative z-30 flex justify-center items-center`}>
                             <div className="w-[97px] flex flex-col justify-end">
                                 <label htmlFor="code" className={label_full}>
                                     Code
@@ -435,15 +435,17 @@ function BookForm({ onSuccess }: Props) {
                                 </div>
                             </div>
 
-                            <div className="flex-1">
-                                <label htmlFor="telephone_number" className={label_full}>Phone</label>
+                            <div className="w-[calc(100%_-_97px)]">
+                                <label htmlFor="telephone_number" className={label_full}>
+                                    Telephone Number
+                                </label>
                                 <input
                                     type="tel"
                                     name="telephone_number"
                                     value={formData.telephone_number}
                                     onChange={handleChange}
-                                    placeholder="Enter phone number"
-                                    className={feild_class + ' h-[44px]'} // Ensure this height matches the select box
+                                    placeholder="ENTER NUMBER"
+                                    className={feild_class}
                                 />
                             </div>
                         </div>
@@ -486,7 +488,7 @@ function BookForm({ onSuccess }: Props) {
                                     onChange={handleChange}
                                 />
                                 <span className="checkbox"></span>
-                                <span>
+                                <span className='tracking-wider'>
                                     By submitting this form, you agree to our Privacy Policy.{' '}
                                     <Link href="">Read Privacy Policy here</Link>
                                 </span>

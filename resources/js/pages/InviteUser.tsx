@@ -10,6 +10,7 @@ import VideoPage from '@/components/ellerston/VideoPage';
 import BookYourSelf from '@/components/ellerston/BookYourSelf';
 import BookForm from '@/components/ellerston/BookForm';
 import { ScrollSmoother } from 'gsap/all';
+import PrivateFooter from '@/components/ellerston/PrivateFooter';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -38,7 +39,7 @@ function HeroScreen() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const bookYourRef = useRef<HTMLDivElement>(null);
-  
+
 
   useEffect(() => {
     if (!wrapperRef.current || !contentRef.current) return;
@@ -305,10 +306,10 @@ function HeroScreen() {
       <TopBar onShowContact={scrollToContent} private_top={true} />
 
       <div ref={wrapperRef}>
-        <div ref={contentRef}>
+        <div className='relative' ref={contentRef}>
 
           <section className="section relative min-h-screen w-full overflow-hidden bg-black">
-            <div ref={containerRef} className="relative flex h-screen flex-col items-end justify-end">
+            {/* <div ref={containerRef} className="relative flex h-screen flex-col items-end justify-end">
               <div className="homescreen absolute top-0 left-0 z-0 h-screen w-full"></div>
               <div className="relative mb-[16px] h-[100px] w-full">
                 {texts.map((text, i) => (
@@ -354,14 +355,18 @@ function HeroScreen() {
                 />
               </div>
 
-            </div>
-
-            <div className="">
-              <VideoPage />
-            </div>
+            </div> */}
 
             <div ref={bookYourRef}>
               <BookYourSelf onShowContact={scrollToContent} />
+            </div>
+
+
+
+
+
+            <div className="">
+              <VideoPage />
             </div>
 
             {activeExperience === 'booking_form' && (
