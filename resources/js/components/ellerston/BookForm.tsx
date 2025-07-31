@@ -152,10 +152,11 @@ function BookForm({ onSuccess }: Props) {
 
     return (
         <section id="book_form" className="form_wrap section w-full items-center bg-black">
-            <div className="book-form-content relative py-[144px]">
+            <div className="book-form-content relative px-[22px] py-[144px]">
                 <div className="form_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
-                <div className="relative z-10 mx-auto max-w-[856px] px-[110px] py-[120px]">
+                <div className="relative z-10 mx-auto max-w-[856px] px-[24px] py-[64px] sm:px-[30px] sm:py-[70px] md:px-[50px] md:py-[80px] lg:px-[90px] lg:py-[100px] xl:px-[110px] xl:py-[120px]">
+
                     <span className="bg-black-light"></span>
 
                     {/* <span className="bg-black-light absolute inset-0 z-[-1]"></span> */}
