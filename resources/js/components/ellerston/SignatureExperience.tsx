@@ -30,11 +30,7 @@ const selectgroupsize = [
     { value: '6', label: '6' },
     { value: '7', label: '7' },
     { value: '8', label: '8' },
-    { value: '9', label: '9' },
-    { value: '10', label: '10' },
-    { value: '11', label: '11' },
-    { value: '12', label: '12' },
-    { value: '13+', label: '13+' },
+    { value: '9', label: '9+' },
 ];
 
 const selectnight = [
@@ -612,14 +608,14 @@ function SignatureExperience({ onSuccess }: Props) {
 
                         <div className={mb24 + ' fade-effect'}>
                             <label htmlFor="current_memberships" className={label_full}>
-                                CURRENT MEMBERSHIPS
+                                CURRENT GOLF CLUB MEMBERSHIPS
                             </label>
                             <input
                                 type="text"
                                 name="current_memberships"
                                 value={formData.current_memberships}
                                 onChange={handleChange}
-                                placeholder="ENTER NOTABLE GOLF CLUBS"
+                                placeholder="ENTER UP TO THREE MEMBERSHIPS"
                                 className={feild_class}
                             />
                         </div>
@@ -628,7 +624,7 @@ function SignatureExperience({ onSuccess }: Props) {
                             <label className="custom_checkbox">
                                 <input type="checkbox" name="acceptPolicy" checked={formData.acceptPolicy} onChange={handleChange} />
                                 <span className="checkbox"></span>
-                                <span>
+                                <span className='tracking-wider'>
                                     By submitting this form, you agree to our Privacy Policy. <Link href="">Read Privacy Policy here</Link>
                                 </span>
                             </label>

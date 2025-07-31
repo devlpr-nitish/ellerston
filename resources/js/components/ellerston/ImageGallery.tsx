@@ -10,6 +10,7 @@ import sitelogo from '../../assets/img/logo.svg';
 import slide01 from '../../assets/img/slide01.jpg';
 import slide02 from '../../assets/img/slide02.jpg';
 import slide03 from '../../assets/img/slide03.jpg';
+import slide04 from '../../assets/img/invited_bg.jpg';
 import { px_72 } from './CssClasses';
 
 gsap.registerPlugin(ScrollSmoother);
@@ -20,7 +21,7 @@ const ImageGallery = ({ onClose }: { onClose: () => void }) => {
     const sliderRef = useRef<any>(null);
     const [sliderKey, setSliderKey] = useState(0);
 
-    const slides = [slide01, slide02, slide03];
+    const slides = [slide01, slide02, slide03, slide04];
     const totalSlides = slides.length;
 
     useEffect(() => {

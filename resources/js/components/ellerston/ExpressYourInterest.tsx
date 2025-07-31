@@ -146,7 +146,7 @@ function ExpressYourInterest({ onShowContact }) {
                             <h5 className={h5_class}>1 day</h5>
                             <span className={line_style}></span>
                             <p className={'py-[12px] ' + p_class}>
-                                Private access to Ellerston Golf course for one round with helicopter transport to and from Sydney.
+                                Private access to Ellerston Golf course for one round with transport to and from Sydney.
                             </p>
                             <div className="linkdiv">
                                 <Link
@@ -182,7 +182,7 @@ function ExpressYourInterest({ onShowContact }) {
                             <h5 className={h5_class}>2 Days, 1 night</h5>
                             <span className={line_style}></span>
                             <p className={'py-[12px] ' + p_class}>
-                                Private access to Ellerston Golf course for two rounds, overnight accommodation and helicopter transport to and from
+                                Private access to Ellerston Golf course for two rounds, overnight accommodation transport to and from
                                 Sydney.
                             </p>
                             <div className="linkdiv">

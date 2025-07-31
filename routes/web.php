@@ -23,7 +23,7 @@ Route::get('/thank_you', function () {
     return Inertia::render('ThankYou');
 });
 
-Route::get('/', function () {
+Route::get('/home/1234', function () {
     return Inertia::render('welcome');
 })->name('home');
 Route::get('/classic-form', function () {
@@ -35,6 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/', function () {
+    return Inertia::render('new-welcome');
+})->name('home');
 
 
 

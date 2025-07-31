@@ -66,6 +66,11 @@ option {
     background-size: cover;
 }
 
+.invited_bg {
+    background: #000 url(../img/invited_bg.jpg) no-repeat center;
+    background-size: cover;
+}
+
 .form_bg {
     background: #000 url(../img/from_bg.jpg) no-repeat center;
     background-size: cover;
