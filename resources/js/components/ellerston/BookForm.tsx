@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useState } from 'react';
-import { button_style, feild_class, gap24, h1_class, h3_class, label_full, mb24 } from './CssClasses';
+import { button_style, feild_class, gap24, h1_class, h3_class, label_full, mb24, p_sm_class } from './CssClasses';
 import Footer from './Footer';
 import ReactFlagsSelect from 'react-flags-select';
 import Select from 'react-select';
@@ -162,10 +162,14 @@ function BookForm({ onSuccess }: Props) {
                     {/* <span className="bg-black-light absolute inset-0 z-[-1]"></span> */}
 
                     <div className="px-[16px]">
-                        <h1 className={h1_class + ' fade-effect mb-[24px] text-center'}>ELLERSTON GOLF</h1>
-                        <h3 className={h3_class + ' fade-effect mb-[24px] text-center'}>
-                            To arrange your visit to Ellerston, please fill out your details below and the team will be in touch.
-                        </h3>
+                        <h1 className={h1_class + ' fade-effect mb-[24px] text-center'}>Priority access</h1>
+                        <h3 className={h3_class + mb24 + ' fade-effect text-center'}>
+                                                   Please enter your details below
+                                                </h3>
+                      
+                         <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
+                                                    Experiences start at A$25,000*  + GST per guest (minimum of 4 guests per group)
+                          </p>
 
                     </div>
 
@@ -438,7 +442,7 @@ function BookForm({ onSuccess }: Props) {
 
                             <div className="w-[calc(100%_-_97px)]">
                                 <label htmlFor="telephone_number" className={label_full}>
-                                    Telephone Number
+                                    Phone
                                 </label>
                                 <input
                                     type="tel"
@@ -452,21 +456,7 @@ function BookForm({ onSuccess }: Props) {
                         </div>
 
 
-                        <div
-                            className={mb24 + ' fade-effect gap-[24px] z-20'}
-                        >
-                            <label htmlFor="group_size" className={label_full}>GROUP SIZE</label>
-                            <Select
-                                options={selectgroupsize}
-                                name="groupsize"
-                                onChange={(option) => setFormData((prev) => ({ ...prev, groupsize: option }))}
-                                value={formData.groupsize}
-                                className="custom-select rounded-lg"
-                                placeholder="Please Select"
-                                styles={sharedSelectStyles}
-                            />
-
-                        </div>
+                    
 
                         <div className={mb24 + ' fade-effect gap-[24px] z-0'}>
                             <label htmlFor="referred_by" className={label_full}>REFERRED BY</label>
@@ -479,7 +469,11 @@ function BookForm({ onSuccess }: Props) {
                                 className={feild_class}
                             />
                         </div>
-
+                        <div className={mb24 + ' fade-effect'}>
+                            <span className='tracking-wider'>
+                                * Plus applicable taxes.
+                            </span>
+                        </div>
                         <div className={mb24 + ' fade-effect gap-[24px]'}>
                             <label className="custom_checkbox">
                                 <input
