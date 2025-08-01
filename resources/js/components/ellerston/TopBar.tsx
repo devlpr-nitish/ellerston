@@ -11,7 +11,7 @@ import { scrollToTarget } from './utils/scrollToTarget';
 
 gsap.registerPlugin(ScrollToPlugin, ScrollSmoother);
 
-function TopBar({ onShowContact }) {
+function TopBar({ onShowContact, private_page }: { onShowContact: any, private_page: boolean }) {
     const menuRef = useRef(null);
     const menuItemsRef = useRef([]);
     const [isOpen, setIsOpen] = useState(false);
@@ -179,23 +179,32 @@ function TopBar({ onShowContact }) {
             </div>
             <div ref={menuRef} className={px_72 + ' absolute right-0 bottom-0 left-0 z-10 translate-y-[-110%] bg-black opacity-0'}>
                 <ul className="menuItem m-0 my-[40px] list-none overflow-hidden pr-[24px]">
-                    {menuLinks.map((item, i) => (
-                        <li key={item.label} ref={(el) => setItemRef(el, i)} className="boder-l-[#fff] border-l-[0.5px] pl-[24px] opacity-0">
-                            <Link
-                                href={item.href}
-                                className={p_xs_class + ' scroll-link inline-block px-[16px] py-[8px]'}
-                                onClick={(e) => {
-                                    if (typeof item.onClick === 'function') {
-                                        item.onClick(e); // call custom handler
-                                    }
-                                    // Otherwise: allow default navigation
-                                }}
+                    {
+                        (private_page
+                            ? menuLinks.filter(item => item.label === "View image gallery")
+                            : menuLinks
+                        ).map((item, i) => (
+                            <li
+                                key={item.label}
+                                ref={(el) => setItemRef(el, i)}
+                                className="border-l-[#fff] border-l-[0.5px] pl-[24px] opacity-0"
                             >
-                                <span>{item.label}</span>
-                            </Link>
-                        </li>
-                    ))}
+                                <Link
+                                    href={item.href}
+                                    className={`${p_xs_class} scroll-link inline-block px-[16px] py-[8px]`}
+                                    onClick={(e) => {
+                                        if (typeof item.onClick === 'function') {
+                                            item.onClick(e);
+                                        }
+                                    }}
+                                >
+                                    <span>{item.label}</span>
+                                </Link>
+                            </li>
+                        ))
+                    }
                 </ul>
+
             </div>
         </m.div>
     );
