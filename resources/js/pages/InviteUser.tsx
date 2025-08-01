@@ -326,7 +326,7 @@ function HeroScreen() {
     <>
       <Head title="Invited" />
 
-      <TopBar onShowContact={scrollToContent} />
+      <TopBar onShowContact={scrollToContent} private_page={true} />
 
       <div ref={wrapperRef}>
         <div className='relative' ref={contentRef}>
