@@ -138,7 +138,7 @@ function BookYourSelf({ onShowContact }) {
             <div className="experience_wrap relative min-h-screen bg-dark opacity-0 flex flex-col justify-center px-4 sm:px-6">
                 <div className="invited_bg absolute top-0 left-0 z-0 h-full w-full"></div>
 
-                <div className="relative z-10 mx-auto flex h-full w-full max-w-[1130px] flex-col items-center justify-center mt-20 mb-5 py-20 px-6 sm:px-10 md:px-16 lg:px-[150px] bg-gray-300/15">
+                <div className="relative z-10 mx-auto flex h-full w-full max-w-[1100px] flex-col items-center justify-center mt-40 mb-5 py-20 px-6 sm:px-10 md:px-16 lg:px-[150px] bg-black/50">
                     <div className="in_head mx-auto flex flex-col items-center px-[20px]">
                         <h1 className={`fade-box mb-6 text-center max-w-full sm:max-w-[320px] md:max-w-[370px] lg:max-w-[386px] ${h1_class}`}>
                             WELCOME TO ELLERSTON GOLF
@@ -146,8 +146,8 @@ function BookYourSelf({ onShowContact }) {
                     </div>
 
                     <div className="fade-box2 mt-8 w-full max-w-3xl px-4 text-center text-[14px] sm:text-[16px] uppercase text-white space-y-6">
-                        <p>Twenty-five years after the course was first carved into the land, we’re thrilled to introduce a new offering for Ellerston Golf.</p>
-                        <p>The team is looking forward to welcoming golfers who value the natural beauty and particular challenge that this course offers, with unique day experiences and tailored overnight stays available.</p>
+                        <p>Twenty-five years after this magical course was first created, we are thrilled to introduce a new way to experience golf at Ellerston.</p>
+                        <p>The team is very much looking forward to welcoming golfers who value the natural beauty and particular challenge that this course offers, with unique day experiences and tailored overnight stays available.</p>
                         <p>With limited opportunities to play the course each year, we are delighted to offer you priority access.</p>
                         <p>To experience Ellerston Golf, please submit your information and we will be in touch about this exclusive opportunity.</p>
                         <p>We look forward to welcoming you to Ellerston.</p>
@@ -194,7 +194,7 @@ function BookYourSelf({ onShowContact }) {
                         </Link>
                     </div>
                     <m.span
-                        className="mx-auto block h-[33px] w-[2px] bg-white"
+                        className="mx-auto mt-4 md:mt-6 lg:mt-6 block h-[33px] w-[2px] bg-white"
                         initial={{ opacity: 0, y: 0 }}
                         animate={{ opacity: [0, 1, 0], y: 60 }}
                         transition={{

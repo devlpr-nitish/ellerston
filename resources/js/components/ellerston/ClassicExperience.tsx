@@ -179,10 +179,10 @@ function ClassicExperience({ onSuccess }: Props) {
                     <div className="px-[16px]">
                         <h1 className={h1_class + mb24 + ' fade-effect'}>CLASSIC EXPERIENCE</h1>
                         <h3 className={h3_class + mb24 + ' fade-effect text-center'}>
-                            To express interest for the waitlist please enter details below.
+                            To express interest Please submit your expression of interest.
                         </h3>
                         <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
-                            The CLASSIC experience starts at $25,000 AUD per guest (Minimum of 4 guests per group)
+                            The CLASSIC experience starts at A$25,000*  AUD per guest (Minimum of 4 guests per group)
                         </p>
                     </div>
                     <hr className="fade-effect my-[48px] h-[1px] bg-white" />
@@ -614,6 +614,11 @@ function ClassicExperience({ onSuccess }: Props) {
                                 placeholder="ENTER UP TO THREE MEMBERSHIPS"
                                 className={feild_class}
                             />
+                        </div>
+                        <div className={mb24 + ' fade-effect'}>
+                            <span className='tracking-wider'>
+                                * Plus applicable taxes.
+                            </span>
                         </div>
 
                         <div className={mb24 + ' fade-effect'}>

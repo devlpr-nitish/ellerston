@@ -10,7 +10,8 @@ import VideoPage from '@/components/ellerston/VideoPage';
 import BookYourSelf from '@/components/ellerston/BookYourSelf';
 import BookForm from '@/components/ellerston/BookForm';
 import { ScrollSmoother } from 'gsap/all';
-import PrivateFooter from '@/components/ellerston/PrivateFooter';
+import ImageGallery from '@/components/ellerston/ImageGallery';
+import ThankYou from '@/components/ellerston/ThankYou';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -26,6 +27,7 @@ const texts = [
 function HeroScreen() {
   const containerRef = useRef<HTMLDivElement>(null);
   const slidesRef = useRef<HTMLDivElement[]>([]);
+  const expressRef = useRef<HTMLDivElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const autoScrollTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -33,6 +35,7 @@ function HeroScreen() {
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [activeExperience, setActiveExperience] = useState<'booking_form' | 'book_yourself' | null>(null);
+  const [showImageGallery, setShowImageGallery] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const bookRef = useRef<HTMLDivElement>(null);
 
@@ -296,14 +299,34 @@ function HeroScreen() {
   const scrollToContent = (source: string) => {
     if (source === 'booking_form') {
       setActiveExperience(source);
+    } else if (source === 'imagegallery') {
+      setShowImageGallery(true);
     }
+  };
+
+  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
+  const handleCloseThankYou = async () => {
+    setActiveExperience(null);
+    await delay(300);
+    if (expressRef.current) {
+      ScrollSmoother.get()?.scrollTo(expressRef.current, true, 'power2.out');
+    }
+    await delay(2000);
+    setShowThankYou(false);
+  };
+
+  const handleCloseGallery = async () => {
+    await delay(1000);
+    setShowImageGallery(false);
   };
 
   return (
     <>
       <Head title="Invited" />
 
-      <TopBar onShowContact={scrollToContent} private_top={true} />
+      <TopBar onShowContact={scrollToContent} />
 
       <div ref={wrapperRef}>
         <div className='relative' ref={contentRef}>
@@ -380,7 +403,10 @@ function HeroScreen() {
 
 
         </div>
+
       </div>
+      {showImageGallery && <ImageGallery onClose={handleCloseGallery} />}
+      {showThankYou && <ThankYou onClose={handleCloseThankYou} />}
     </>
   );
 }

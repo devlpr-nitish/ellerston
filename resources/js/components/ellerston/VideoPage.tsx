@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Ellerston from '../../assets/video/Ellerston.mov';
-import EllerstonPoster from '../../assets/img/video_cover.png';
+import EllerstonPoster from '../../assets/img/EllerstonV05frame12.jpg';
 import EllerstonBg from '../../assets/img/phone_video_cover.png';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -97,7 +97,6 @@ const VideoPage: React.FC = () => {
             <video
                 ref={videoRef}
                 src={Ellerston}
-                muted
                 loop
                 playsInline
                 className="absolute inset-0 z-10 w-full h-full object-contain sm:object-cover"
@@ -125,7 +124,7 @@ const VideoPage: React.FC = () => {
                     >
                         <svg
                             className={`
-                                h-[110px] w-[110px]  md:h-[160px] md:w-[160px]  rounded-full text-xl md:text-2xl cursor-pointer font-semibold transition-all duration-700
+                                h-[110px] w-[110px]   md:w-[100px]  rounded-full text-xl md:text-2xl cursor-pointer font-semibold transition-all duration-700
                                 ${showOverlay ? 'opacity-100' : 'opacity-0'}
                             `}
                             fill="#ffffff"
