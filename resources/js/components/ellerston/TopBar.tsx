@@ -23,11 +23,11 @@ function TopBar({ onShowContact, private_page }: { onShowContact: any, private_p
     const [showTopBar, setShowTopBar] = useState(true);
     const lastScrollY = useRef(0);
 
-
     useEffect(() => {
-        
-        // comment this if you want for all devices
+
+        // comment if you want to apply for all devices
         if (window.innerWidth > 768) return;
+
 
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -49,7 +49,6 @@ function TopBar({ onShowContact, private_page }: { onShowContact: any, private_p
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
 
     const toggleMenu = useCallback(
         (e) => {
