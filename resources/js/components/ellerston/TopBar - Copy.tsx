@@ -20,37 +20,6 @@ function TopBar({ onShowContact, private_page }: { onShowContact: any, private_p
     const [isExpanded, setIsExpanded] = useState(false);
     // console.log(isOpen);
 
-    const [showTopBar, setShowTopBar] = useState(true);
-    const lastScrollY = useRef(0);
-
-
-    useEffect(() => {
-        
-        // comment this if you want for all devices
-        if (window.innerWidth > 768) return;
-
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-
-            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-                // Scrolling down
-                setShowTopBar(false);
-            } else {
-                // Scrolling up
-                setShowTopBar(true);
-            }
-
-            lastScrollY.current = currentScrollY;
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-
     const toggleMenu = useCallback(
         (e) => {
             if (e) e.preventDefault();
@@ -175,9 +144,7 @@ function TopBar({ onShowContact, private_page }: { onShowContact: any, private_p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.5 }}
-            // className="top_bar fixed top-0 left-0 z-20 w-full"
-            className={`transition-transform duration-600 fixed top-0 left-0 w-full z-50 ${showTopBar ? 'translate-y-0' : '-translate-y-full'
-                }`}
+            className="top_bar fixed top-0 left-0 z-20 w-full"
         >
             <div className={px_72 + ' in_topbar relative z-20 flex items-center justify-between py-[24px]'}>
                 <div className="logo w-[85px] sm:w-[100px]">
@@ -212,32 +179,23 @@ function TopBar({ onShowContact, private_page }: { onShowContact: any, private_p
             </div>
             <div ref={menuRef} className={px_72 + ' absolute right-0 bottom-0 left-0 z-10 translate-y-[-110%] bg-black opacity-0'}>
                 <ul className="menuItem m-0 my-[40px] list-none overflow-hidden pr-[24px]">
-                    {
-                        (private_page
-                            ? menuLinks.filter(item => item.label === "View image gallery")
-                            : menuLinks
-                        ).map((item, i) => (
-                            <li
-                                key={item.label}
-                                ref={(el) => setItemRef(el, i)}
-                                className="border-l-[#fff] border-l-[0.5px] pl-[24px] opacity-0"
+                    {menuLinks.map((item, i) => (
+                        <li key={item.label} ref={(el) => setItemRef(el, i)} className="boder-l-[#fff] border-l-[0.5px] pl-[24px] opacity-0">
+                            <Link
+                                href={item.href}
+                                className={p_xs_class + ' scroll-link inline-block px-[16px] py-[8px]'}
+                                onClick={(e) => {
+                                    if (typeof item.onClick === 'function') {
+                                        item.onClick(e); // call custom handler
+                                    }
+                                    // Otherwise: allow default navigation
+                                }}
                             >
-                                <Link
-                                    href={item.href}
-                                    className={`${p_xs_class} scroll-link inline-block px-[16px] py-[8px]`}
-                                    onClick={(e) => {
-                                        if (typeof item.onClick === 'function') {
-                                            item.onClick(e);
-                                        }
-                                    }}
-                                >
-                                    <span>{item.label}</span>
-                                </Link>
-                            </li>
-                        ))
-                    }
+                                <span>{item.label}</span>
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
-
             </div>
         </m.div>
     );

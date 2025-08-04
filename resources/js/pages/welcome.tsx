@@ -29,6 +29,10 @@ export default function Welcome() {
     const [showImageGallery, setShowImageGallery] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
 
+
+
+
+
     // ScrollSmoother setup
     useEffect(() => {
         if (!wrapperRef.current || !contentRef.current) return;
@@ -109,7 +113,8 @@ export default function Welcome() {
 
     return (
         <>
-            <TopBar onShowContact={scrollToContent} />
+
+            <TopBar private_page={false} onShowContact={scrollToContent} />
             <div ref={wrapperRef}>
                 <div ref={contentRef}>
                     <HeroScreen />

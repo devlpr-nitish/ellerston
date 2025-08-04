@@ -164,12 +164,12 @@ function BookForm({ onSuccess }: Props) {
                     <div className="px-[16px]">
                         <h1 className={h1_class + ' fade-effect mb-[24px] text-center'}>Priority access</h1>
                         <h3 className={h3_class + mb24 + ' fade-effect text-center'}>
-                                                   Please enter your details below
-                                                </h3>
-                      
-                         <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
-                                                    Experiences start at A$25,000*  + GST per guest (minimum of 4 guests per group)
-                          </p>
+                            Please enter your details below
+                        </h3>
+
+                        <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
+                            Experiences start at A$25,000*  + GST per guest <br /> (minimum of 4 guests per group)
+                        </p>
 
                     </div>
 
@@ -456,7 +456,7 @@ function BookForm({ onSuccess }: Props) {
                         </div>
 
 
-                    
+
 
                         <div className={mb24 + ' fade-effect gap-[24px] z-0'}>
                             <label htmlFor="referred_by" className={label_full}>REFERRED BY</label>
@@ -465,17 +465,17 @@ function BookForm({ onSuccess }: Props) {
                                 name="referred_by"
                                 value={formData.referred_by}
                                 onChange={handleChange}
-                                placeholder="ENTER NAME OR CODE"
+                                placeholder="ENTER NAME"
                                 className={feild_class}
                             />
                         </div>
-                        <div className={mb24 + ' fade-effect'}>
-                            <span className='tracking-wider'>
-                                * Plus applicable taxes.
+                        <div className={mb24 + ' fade-effect custom_checkbox'}>
+                            <span className='tracking-wide uppercase font-white'>
+                                * PLUS APPLICABLE TAXES.
                             </span>
                         </div>
-                        <div className={mb24 + ' fade-effect gap-[24px]'}>
-                            <label className="custom_checkbox">
+                        <div className={mb24 + ' fade-effect gap-[24px] flex flex-start'}>
+                            <label className="custom_checkbox flex items-center justify-center">
                                 <input
                                     type="checkbox"
                                     name="acceptPolicy"
@@ -483,7 +483,7 @@ function BookForm({ onSuccess }: Props) {
                                     onChange={handleChange}
                                 />
                                 <span className="checkbox"></span>
-                                <span className='tracking-wider'>
+                                <span className='tracking-wide mt-1 text-[10px] md:text-[13px]'>
                                     By submitting this form, you agree to our Privacy Policy.{' '}
                                     <Link href="">Read Privacy Policy here</Link>
                                 </span>

@@ -83,7 +83,7 @@ function SignatureExperience({ onSuccess }: Props) {
                     // start: 'top+=100 center',
                     start: 'top 10%',
                     // end: '+=5%',
-                    end:"bottom top",
+                    end: "bottom top",
                     animation: tl,
                     toggleActions: 'restart none restart none',
                     invalidateOnRefresh: true,
@@ -112,9 +112,9 @@ function SignatureExperience({ onSuccess }: Props) {
                             duration: 0.4,
                             ease: 'power2.out',
                         }),
-                });
+                });
 
-               ScrollTrigger.refresh();
+                ScrollTrigger.refresh();
             });
             return () => {
                 ctx.revert();
@@ -173,10 +173,10 @@ function SignatureExperience({ onSuccess }: Props) {
                     <div className="px-[16px]">
                         <h1 className={h1_class + mb24 + ' fade-effect'}>Signature EXPERIENCE</h1>
                         <h3 className={h3_class + mb24 + ' fade-effect text-center'}>
-                            To express interest Please submit your expression of interest.
+                            Please submit your expression of interest.
                         </h3>
                         <p className={p_sm_class + ' fade-effect mx-auto max-w-[500px] text-center uppercase'}>
-                            The Signature experience starts at A$38,000* AUD per guest (Minimum of 4 guests per group)
+                            The Signature experience starts at A$38,000* AUD per guest <br /> (Minimum of 4 guests per group)
                         </p>
                     </div>
                     <hr className="fade-effect my-[48px] h-[1px] bg-white" />
@@ -607,7 +607,7 @@ function SignatureExperience({ onSuccess }: Props) {
                         </div>
 
                         <div className={mb24 + ' fade-effect'}>
-                            <label htmlFor="current_memberships" className={label_full}>
+                            <label htmlFor="current_memberships" className={label_full + ' tracking-tight'}>
                                 CURRENT GOLF CLUB MEMBERSHIPS
                             </label>
                             <input
@@ -619,22 +619,22 @@ function SignatureExperience({ onSuccess }: Props) {
                                 className={feild_class}
                             />
                         </div>
-                        <div className={mb24 + ' fade-effect'}>
-                            <span className='tracking-wider'>
-                                * Plus applicable taxes.
+                        <div className={mb24 + ' fade-effect custom_checkbox'}>
+                            <span className='tracking-wide uppercase font-white'>
+                                * PLUS APPLICABLE TAXES.
                             </span>
                         </div>
 
-                        <div className={mb24 + ' fade-effect'}>
-                            <label className="custom_checkbox">
+                        <div className={mb24 + ' fade-effect  flex flex-start'}>
+                            <label className="custom_checkbox flex items-center justify-center">
                                 <input type="checkbox" name="acceptPolicy" checked={formData.acceptPolicy} onChange={handleChange} />
                                 <span className="checkbox"></span>
-                                <span className='tracking-wider'>
+                                <span className='tracking-wide mt-1 text-[10px] md:text-[13px]'>
                                     By submitting this form, you agree to our Privacy Policy. <Link href="">Read Privacy Policy here</Link>
                                 </span>
                             </label>
                         </div>
-                        
+
 
                         <div className="fade-effect pt-[14px] text-center md:pt-[24px]">
                             <button type="submit" className={button_style + ' btn_arrow m-auto'}>

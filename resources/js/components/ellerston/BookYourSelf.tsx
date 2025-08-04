@@ -1,151 +1,164 @@
-
 import { Link } from '@inertiajs/react';
-
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
-import { button_style, h1_class, h3_class, h5_class, line_style, p_class } from './CssClasses';
+import { button_style, h1_class } from './CssClasses';
 import { scrollToTarget } from './utils/scrollToTarget';
 import { motion as m } from 'framer-motion';
 
-
-
 gsap.registerPlugin(ScrollTrigger);
-function BookYourSelf({ onShowContact }) {
 
+function BookYourSelf({ onShowContact }) {
     const skipAnimationRef = useRef(false);
 
+
     useEffect(() => {
-        const tl = gsap.timeline();
-
-        const fadeFrom = {
-            opacity: 0,
-            y: 50
-        };
-        const fadeTo = {
-            opacity: 1,
-            y: 0,
-            duration: 0.2,
-            ease: 'power2.out',
-        };
-
-
-        // tl.fromTo(
-        //     '.express_bg',
-        //     {
-        //         opacity: 0,
-        //         y: 100
-        //     },
-        //     {
-        //         opacity: 1,
-        //         y: 0,
-        //         duration: 0.5,
-        //         delay: 0.1,
-        //     },
-        // );
+        const fadeFrom = { opacity: 0, y: 50 };
+        const fadeTo = { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' };
 
         const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
-        boxes.forEach((box) => {
-            tl.fromTo(box, fadeFrom, fadeTo);
-        });
-
-        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2 h3');
-        boxes2.forEach((box2) => {
-            tl.fromTo(box2, fadeFrom, fadeTo);
-        });
-
-        const boxes3 = gsap.utils.toArray<HTMLElement>('.fade-box2 h5');
-        boxes3.forEach((box3) => {
-            tl.fromTo(box3, fadeFrom, fadeTo);
-        });
-
-        const boxes4 = gsap.utils.toArray<HTMLElement>('.fade-box2 > span');
-        boxes4.forEach((box4) => {
-            tl.fromTo(
-                box4,
-                { width: '0' },
-                {
-                    width: '100%',
-                    duration: 0.2,
-                    ease: 'power2.out',
-                },
-            );
-        });
-
-
         const boxes5 = gsap.utils.toArray<HTMLElement>('.fade-box2 > p');
-        boxes5.forEach((box5) => {
-            tl.fromTo(box5, fadeFrom, fadeTo);
-        });
-
         const boxes6 = gsap.utils.toArray<HTMLElement>('.fade-box2 .linkdiv');
-        boxes6.forEach((box6) => {
-            tl.fromTo(box6, fadeFrom, fadeTo);
-        });
 
-        ScrollTrigger.create({
+        const animateSection = () => {
+            const tl = gsap.timeline();
+
+            tl.to('.experience_wrap', {
+                opacity: 1,
+                duration: 3,
+                delay: 3,
+                ease: 'power2.out',
+            });
+
+            tl.to('.new_animation', {
+                opacity: 1,
+                duration: 2,
+                ease: 'power2.out',
+            }, '-=1.5'); 
+
+            boxes.forEach((box, index) => {
+                tl.fromTo(
+                    box,
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.2,
+                        ease: 'power2.out',
+                        delay: index * 0.05,
+                    },
+                    '-=0.8'
+                );
+            });
+
+            boxes5.forEach((box5, index) => {
+                tl.fromTo(
+                    box5,
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.2,
+                        ease: 'power2.out',
+                        delay: index * 0.05,
+                    },
+                    '-=0.9'
+                );
+            });
+
+            boxes6.forEach((box6, index) => {
+                tl.fromTo(
+                    box6,
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.2,
+                        ease: 'power2.out',
+                        delay: index * 0.05,
+                    },
+                    '-=1'
+                );
+            });
+
+            tl.fromTo(
+                '.scroll-down',
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 1,
+                    ease: 'power2.out',
+                }
+            );
+
+            return tl;
+        };
+
+
+        const st = ScrollTrigger.create({
             trigger: '.experience_wrap',
             start: 'top 20%',
             end: 'bottom 10%',
-            toggleActions: 'none none none none',
-            // animation: tl,
             onEnter: () => {
                 if (!skipAnimationRef.current) {
-                    tl.restart();
+                    animateSection();
                 }
-                gsap.to('.experience_wrap', {
-                    opacity: 1,
-                    duration: 0.4,
-                    ease: 'power2.out',
-                })
-
-            },
-            onLeave: () => {
-                gsap.to('.experience_wrap', {
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: 'power2.in',
-                })
-            },
-            onLeaveBack: () => {
-                gsap.to('.experience_wrap', {
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: 'power2.in',
-                })
             },
             onEnterBack: () => {
                 if (!skipAnimationRef.current) {
-                    tl.restart();
+                    animateSection();
                 }
+            },
+            onLeave: () => {
                 gsap.to('.experience_wrap', {
-                    opacity: 1,
+                    opacity: 0.2,
+                    duration: 0.4,
+                    ease: 'power2.in',
+                });
+                gsap.to('.new_animation', {
+                    opacity: 0,
                     duration: 0.4,
                     ease: 'power2.out',
-                })
+                });
             },
-            markers: false,
+            onLeaveBack: () => {
+                gsap.to('.experience_wrap', {
+                    opacity: 0.2,
+                    duration: 0.4,
+                    ease: 'power2.in',
+                });
+                gsap.to('.new_animation', {
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                });
+            },
+            once: false,
             invalidateOnRefresh: true,
         });
 
-
         ScrollTrigger.refresh();
+
+        return () => {
+            st.kill();
+        };
     }, []);
+
 
 
     return (
         <section id="bookform_wrap" className="w-full bg-black">
-            <div className="experience_wrap relative min-h-screen bg-dark opacity-0 flex flex-col justify-center px-4 sm:px-6">
-                <div className="invited_bg absolute top-0 left-0 z-0 h-full w-full"></div>
+            <div className="experience_wrap relative min-h-screen bg-dark opacity-20 flex flex-col justify-center px-4 sm:px-6">
+                <div className="invited_bg absolute top-0 left-0 z-0 h-full w-full" />
 
-                <div className="relative z-10 mx-auto flex h-full w-full max-w-[1100px] flex-col items-center justify-center mt-40 mb-5 py-20 px-6 sm:px-10 md:px-16 lg:px-[150px] bg-black/50">
+                <div className="new_animation opacity-0 relative z-10 mx-auto flex h-full w-full max-w-[1100px] flex-col items-center justify-center mt-40 mb-5 py-20 px-6 sm:px-10 md:px-16 lg:px-[150px] bg-black/50">
                     <div className="in_head mx-auto flex flex-col items-center px-[20px]">
                         <h1 className={`fade-box mb-6 text-center max-w-full sm:max-w-[320px] md:max-w-[370px] lg:max-w-[386px] ${h1_class}`}>
                             WELCOME TO ELLERSTON GOLF
                         </h1>
                     </div>
 
-                    <div className="fade-box2 mt-8 w-full max-w-3xl px-4 text-center text-[14px] sm:text-[16px] uppercase text-white space-y-6">
+                    <div className="fade-box2 mt-8 w-full max-w-3xl px-4 text-center text-[14px] sm:text-[16px] text-white space-y-6">
                         <p>Twenty-five years after this magical course was first created, we are thrilled to introduce a new way to experience golf at Ellerston.</p>
                         <p>The team is very much looking forward to welcoming golfers who value the natural beauty and particular challenge that this course offers, with unique day experiences and tailored overnight stays available.</p>
                         <p>With limited opportunities to play the course each year, we are delighted to offer you priority access.</p>
@@ -157,12 +170,28 @@ function BookYourSelf({ onShowContact }) {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     skipAnimationRef.current = true;
+
+                                    // 🔧 Manually dim both when skipping animation
+                                    gsap.to('.experience_wrap', {
+                                        opacity: 0.2,
+                                        duration: 0.4,
+                                        ease: 'power2.in',
+                                    });
+                                    gsap.to('.new_animation', {
+                                        opacity: 0,
+                                        duration: 0.4,
+                                        ease: 'power2.out',
+                                    });
+
                                     scrollToTarget('#book_form');
                                     onShowContact('booking_form');
+
                                     setTimeout(() => {
                                         skipAnimationRef.current = false;
+                                        ScrollTrigger.refresh();
                                     }, 1000);
                                 }}
+
                                 className={`${button_style} btn_arrow scroll-link`}
                                 href="#book_form"
                             >

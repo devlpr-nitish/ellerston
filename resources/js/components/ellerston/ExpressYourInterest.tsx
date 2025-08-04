@@ -11,120 +11,188 @@ gsap.registerPlugin(ScrollTrigger);
 function ExpressYourInterest({ onShowContact }) {
     const skipAnimationRef = useRef(false);
 
+    // useEffect(() => {
+    //     const tl = gsap.timeline();
+
+    //     const fadeFrom = {
+    //         opacity: 0,
+    //         y: 50
+    //     };
+    //     const fadeTo = {
+    //         opacity: 1,
+    //         y: 0,
+    //         duration: 0.2,
+    //         ease: 'power2.out',
+    //     };
+
+    //     // tl.fromTo(
+    //     //     '.express_bg',
+    //     //     { 
+    //     //         opacity: 0, 
+    //     //         y: 100 
+    //     //     },
+    //     //     {
+    //     //         opacity: 1,
+    //     //         y: 0,
+    //     //         duration: 0.5,
+    //     //         delay: 0.1,
+    //     //     },
+    //     // );
+
+    //     const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
+    //     boxes.forEach((box) => {
+    //         tl.fromTo(box, fadeFrom, fadeTo);
+    //     });
+
+    //     const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2 > div > h3');
+    //     boxes2.forEach((box2) => {
+    //         tl.fromTo(box2, fadeFrom, fadeTo);
+    //     });
+
+    //     const boxes3 = gsap.utils.toArray<HTMLElement>('.fade-box2 > div > h5');
+    //     boxes3.forEach((box3) => {
+    //         tl.fromTo(box3, fadeFrom, fadeTo);
+    //     });
+
+    //     const boxes4 = gsap.utils.toArray<HTMLElement>('.fade-box2 > div > span');
+    //     boxes4.forEach((box4) => {
+    //         tl.fromTo(
+    //             box4,
+    //             { width: '0' },
+    //             {
+    //                 width: '100%',
+    //                 duration: 0.4,
+    //                 ease: 'power2.out',
+    //             },
+    //         );
+    //     });
+
+    //     const boxes5 = gsap.utils.toArray<HTMLElement>('.fade-box2 > div > p');
+    //     boxes5.forEach((box5) => {
+    //         tl.fromTo(box5, fadeFrom, fadeTo);
+    //     });
+
+    //     const boxes6 = gsap.utils.toArray<HTMLElement>('.fade-box2 .linkdiv');
+    //     boxes6.forEach((box6) => {
+    //         tl.fromTo(box6, fadeFrom, fadeTo);
+    //     });
+
+    //     ScrollTrigger.create({
+    //         trigger: '.experience_wrap',
+    //         start: 'top 20%',
+    //         end: 'bottom 10%',
+    //         toggleActions: 'none none none none',
+    //         // animation: tl,
+    //         onEnter: () => {
+    //             if (!skipAnimationRef.current) {
+    //                 tl.restart();
+    //             }
+    //             gsap.to('.experience_wrap', {
+    //                 opacity: 1,
+    //                 duration: 0.4,
+    //                 ease: 'power2.out',
+    //             })
+
+    //         },
+    //         onLeave: () => {
+    //             gsap.to('.experience_wrap', {
+    //                 opacity: 0,
+    //                 duration: 0.4,
+    //                 ease: 'power2.in',
+    //             })
+    //         },
+    //         onLeaveBack: () => {
+    //             gsap.to('.experience_wrap', {
+    //                 opacity: 0,
+    //                 duration: 0.4,
+    //                 ease: 'power2.in',
+    //             })
+    //         },
+    //         onEnterBack: () => {
+    //             if (!skipAnimationRef.current) {
+    //                 tl.restart();
+    //             }
+    //             gsap.to('.experience_wrap', {
+    //                 opacity: 1,
+    //                 duration: 0.4,
+    //                 ease: 'power2.out',
+    //             })
+    //         },
+    //         markers: false,
+    //         invalidateOnRefresh: true,
+    //     });
+
+
+    //     ScrollTrigger.refresh();
+    // }, []);
+
     useEffect(() => {
-        const tl = gsap.timeline();
+        const master = gsap.timeline();
 
-        const fadeFrom = { 
-            opacity: 0, 
-            y: 50 
-        };
-        const fadeTo = {
-            opacity: 1,
-            y: 0,
-            duration: 0.2,
-            ease: 'power2.out',
-        };
+        const fadeFrom = { opacity: 0, y: 50 };
+        const fadeTo = { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' };
 
-        // tl.fromTo(
-        //     '.express_bg',
-        //     { 
-        //         opacity: 0, 
-        //         y: 100 
-        //     },
-        //     {
-        //         opacity: 1,
-        //         y: 0,
-        //         duration: 0.5,
-        //         delay: 0.1,
-        //     },
-        // );
-
-        const boxes = gsap.utils.toArray<HTMLElement>('.fade-box');
-        boxes.forEach((box) => {
-            tl.fromTo(box, fadeFrom, fadeTo);
+        
+        const fadeBoxes = gsap.utils.toArray<HTMLElement>('.fade-box');
+        fadeBoxes.forEach(el => {
+            master.fromTo(el, fadeFrom, fadeTo, '<');
         });
 
-        const boxes2 = gsap.utils.toArray<HTMLElement>('.fade-box2 h3');
-        boxes2.forEach((box2) => {
-            tl.fromTo(box2, fadeFrom, fadeTo);
+        
+        const fadeBox2List = gsap.utils.toArray<HTMLElement>('.fade-box2');
+
+        const timelines = fadeBox2List.map(box => {
+            const tl = gsap.timeline();
+
+            const h3 = box.querySelector('h3');
+            const h5 = box.querySelector('h5');
+            const span = box.querySelector('span');
+            const p = box.querySelector('p');
+            const link = box.querySelector('.linkdiv');
+
+            if (h3) tl.fromTo(h3, fadeFrom, fadeTo);
+            if (h5) tl.fromTo(h5, fadeFrom, fadeTo);
+            if (span) tl.fromTo(span, { width: '0' }, { width: '100%', duration: 0.6, ease: 'power2.out' });
+            if (p) tl.fromTo(p, fadeFrom, fadeTo);
+            if (link) tl.fromTo(link, fadeFrom, fadeTo);
+
+            return tl;
         });
 
-        const boxes3 = gsap.utils.toArray<HTMLElement>('.fade-box2 h5');
-        boxes3.forEach((box3) => {
-            tl.fromTo(box3, fadeFrom, fadeTo);
-        });
+        
+        master.add(timelines[0], '<+0.2');
+        master.add(timelines[1], '<');
 
-        const boxes4 = gsap.utils.toArray<HTMLElement>('.fade-box2 > span');
-        boxes4.forEach((box4) => {
-            tl.fromTo(
-                box4,
-                { width: '0' },
-                {
-                    width: '100%',
-                    duration: 0.2,
-                    ease: 'power2.out',
-                },
-            );
-        });
-
-        const boxes5 = gsap.utils.toArray<HTMLElement>('.fade-box2 > p');
-        boxes5.forEach((box5) => {
-            tl.fromTo(box5, fadeFrom, fadeTo);
-        });
-
-        const boxes6 = gsap.utils.toArray<HTMLElement>('.fade-box2 .linkdiv');
-        boxes6.forEach((box6) => {
-            tl.fromTo(box6, fadeFrom, fadeTo);
-        });
-
+        
         ScrollTrigger.create({
             trigger: '.experience_wrap',
             start: 'top 20%',
-            end:'bottom 10%',
-            toggleActions: 'none none none none',
-            // animation: tl,
-            onEnter: () =>{
+            end: 'bottom 10%',
+            onEnter: () => {
                 if (!skipAnimationRef.current) {
-                    tl.restart(); 
+                    master.restart();
                 }
-                gsap.to('.experience_wrap', {
-                    opacity: 1,
-                    duration: 0.4,
-                    ease: 'power2.out',
-                })
-                
+                gsap.to('.experience_wrap', { opacity: 1, duration: 0.4, ease: 'power2.out' });
             },
-            onLeave: () =>{
-                gsap.to('.experience_wrap', {
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: 'power2.in',
-                })
+            onLeave: () => {
+                gsap.to('.experience_wrap', { opacity: 0, duration: 0.4, ease: 'power2.in' });
             },
-            onLeaveBack: () =>{
-                gsap.to('.experience_wrap', {
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: 'power2.in',
-                })
+            onLeaveBack: () => {
+                gsap.to('.experience_wrap', { opacity: 0, duration: 0.4, ease: 'power2.in' });
             },
-            onEnterBack: () =>{
+            onEnterBack: () => {
                 if (!skipAnimationRef.current) {
-                    tl.restart();
+                    master.restart();
                 }
-                gsap.to('.experience_wrap', {
-                    opacity: 1,
-                    duration: 0.4,
-                    ease: 'power2.out',
-                })
+                gsap.to('.experience_wrap', { opacity: 1, duration: 0.4, ease: 'power2.out' });
             },
             markers: false,
             invalidateOnRefresh: true,
         });
 
-
         ScrollTrigger.refresh();
     }, []);
+
 
     return (
         <section id="experience_wrap" className="section w-full items-center bg-black">
@@ -140,14 +208,16 @@ function ExpressYourInterest({ onShowContact }) {
                         </span>
                     </div>
 
-                    <div className="sec_body grid grid-cols-1 gap-[64px] px-[40px] pt-[64px] sm:gap-[5vw] sm:pt-[70px] md:grid-cols-2 md:gap-[8vw] md:pt-[80px] lg:gap-[13vw] lg:pt-[90px] xl:gap-[250px] xl:pt-[110px]">
-                        <div className="fade-box2">
-                            <h3 className={h3_class}>CLASSIC EXPERIENCE</h3>
-                            <h5 className={h5_class}>1 day</h5>
-                            <span className={line_style}></span>
-                            <p className={'py-[12px] ' + p_class}>
-                                Private access to Ellerston Golf course for one round with transport to and from Sydney.
-                            </p>
+                    <div className="sec_body grid grid-cols-1 gap-[64px] px-[40px] pt-[64px] sm:gap-[5vw] sm:pt-[70px] md:grid-cols-2 md:gap-[8vw] md:pt-[80px] lg:gap-[13vw] lg:pt-[90px] xl:gap-[250px] xl:pt-[110px] ">
+                        <div className="fade-box2 flex flex-col justify-between">
+                            <div className="">
+                                <h3 className={h3_class}>CLASSIC EXPERIENCE</h3>
+                                <h5 className={h5_class}>One day</h5>
+                                <span className={line_style}></span>
+                                <p className={'py-[12px] ' + p_class}>
+                                    Private access to Ellerston Golf course for one round with transport to and from Sydney.
+                                </p>
+                            </div>
                             <div className="linkdiv">
                                 <Link
                                     onClick={(e) => {
@@ -177,21 +247,23 @@ function ExpressYourInterest({ onShowContact }) {
                                 </Link>
                             </div>
                         </div>
-                        <div className="fade-box2">
-                            <h3 className={h3_class}>Signature EXPERIENCE</h3>
-                            <h5 className={h5_class}>2 Days, 1 night</h5>
-                            <span className={line_style}></span>
-                            <p className={'py-[12px] ' + p_class}>
-                                Private access to Ellerston Golf course for two rounds, overnight accommodation transport to and from
-                                Sydney.
-                            </p>
+                        <div className="fade-box2 flex flex-col justify-between">
+                            <div className="">
+                                <h3 className={h3_class}>Signature EXPERIENCE</h3>
+                                <h5 className={h5_class}>TWO Days, ONE night</h5>
+                                <span className={line_style}></span>
+                                <p className={'py-[12px] ' + p_class}>
+                                    Private access to Ellerston Golf course for two rounds, overnight accommodation and transport to and from
+                                    Sydney.
+                                </p>
+                            </div>
                             <div className="linkdiv">
                                 <Link
                                     onClick={(e) => {
                                         e.preventDefault();
 
                                         skipAnimationRef.current = true;
-                                        
+
                                         scrollToTarget('#classic_experience');
                                         onShowContact('signature');
 
